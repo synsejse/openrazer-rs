@@ -2,9 +2,11 @@ use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
 use std::{collections::HashMap, io};
 
-use crate::Error;
+use crate::{
+    devices::{Device, GenericDevice},
+    Error,
+};
 
-const DESTINATION: &str = "org.razer";
 const PATH: &str = "/org/razer";
 const DAEMON_INTERFACE: &str = "razer.daemon";
 const DEVICES_INTERFACE: &str = "razer.devices";
@@ -16,11 +18,11 @@ pub struct DeviceManager {
 }
 
 fn daemon_message(method: &'static str) -> Message {
-    Message::method_call(DESTINATION, PATH, DAEMON_INTERFACE, method)
+    Message::method_call(crate::DESTINATION, PATH, DAEMON_INTERFACE, method)
 }
 
 fn devices_message(method: &'static str) -> Message {
-    Message::method_call(DESTINATION, PATH, DEVICES_INTERFACE, method)
+    Message::method_call(crate::DESTINATION, PATH, DEVICES_INTERFACE, method)
 }
 
 impl DeviceManager {
@@ -55,6 +57,30 @@ impl DeviceManager {
             [Value::String(json)] => serde_json::from_str(json).or(Err(Error::InvalidResponse)),
             _ => Err(Error::InvalidResponse),
         }
+    }
+
+    /// Fetches connected devices.
+    pub async fn get_connected_devices(&self) -> Result<Vec<Device>, Error> {
+        let (_, body) = self.dbus.call(devices_message("getDevices")).await?.split();
+
+        let serials = match body.into_iter().next() {
+            Some(Value::Array(serials, _)) => serials,
+            _ => return Err(Error::InvalidResponse),
+        };
+
+        let mut devices = Vec::new();
+
+        for serial in serials {
+            let serial = match serial {
+                Value::String(serial) => serial,
+                _ => return Err(Error::InvalidResponse),
+            };
+
+            let generic = GenericDevice::new(self.dbus.clone(), serial).await?;
+            devices.push(generic.into_device().await?);
+        }
+
+        Ok(devices)
     }
 
     /// Fetches information if devices' lighting is disabled on lockscreen.
