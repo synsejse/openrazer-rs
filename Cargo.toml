@@ -1,0 +1,19 @@
+[package]
+name = "openrazer"
+version = "0.1.0"
+authors = ["SnejUgal <contact@snejugal.ru>"]
+edition = "2018"
+license = "MIT"
+
+[dependencies]
+dbus-async = "1"
+dbus-message-parser = "2.2"
+tokio = { version = "0.2", features = ["rt-core"] }
+serde_json = "1"
+
+[[example]]
+name = "basic_effect"
+required-features = ["tokio/macros"]
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
