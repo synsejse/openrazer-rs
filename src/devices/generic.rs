@@ -1,11 +1,14 @@
-use crate::{devices::Device, Error};
+use crate::{
+    devices::{Device, Keyboard},
+    Error,
+};
 use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
 use futures::future::BoxFuture;
 use std::collections::HashMap;
 use xmltree::Element;
 
-const DEVICE_INTERFACE: &str = "razer.device.misc";
+pub(crate) const DEVICE_INTERFACE: &str = "razer.device.misc";
 const BRIGHTNESS_INTERFACE: &str = "razer.device.lighting.brightness";
 const INTROSPECT_INTERFACE: &str = "org.freedesktop.DBus.Introspectable";
 
@@ -160,7 +163,7 @@ impl GenericDevice {
         })
     }
 
-    fn message(&self, interface: &'static str, method: &'static str) -> Message {
+    pub(crate) fn message(&self, interface: &'static str, method: &'static str) -> Message {
         Message::method_call(crate::DESTINATION, self.path.as_str(), interface, method)
     }
 
@@ -176,7 +179,7 @@ impl GenericDevice {
         };
 
         Ok(match device_type {
-            // todo: "keyboard" | "keypad"
+            "keyboard" | "keypad" => Device::Keyboard(Keyboard::new(self)),
             // todo: "mouse"
             // todo: "mousemat"
             _ => Device::Other(self),
