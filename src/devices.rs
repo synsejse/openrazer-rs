@@ -8,7 +8,7 @@ pub use huntsman::Huntsman;
 
 use crate::capabilities::{
     BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode,
-    NoEffect, ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
+    NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect, StaticEffect, WaveEffect,
 };
 
 /// A Razer device, possibly a specific one.
@@ -107,6 +107,19 @@ impl Device {
             ReactiveEffect::INTERFACE,
             ReactiveEffect::METHOD,
         )
+    }
+
+    /// Controls the ripple effect.
+    pub fn ripple_effect(&self) -> Option<RippleEffect<'_>> {
+        if self.has_capability(RippleEffect::INTERFACE, RippleEffect::METHOD) {
+            Some(RippleEffect {
+                base: self.get_generic_device().capability_base(),
+                has_random_support: self
+                    .has_capability(RippleEffect::INTERFACE, RippleEffect::METHOD_RANDOM),
+            })
+        } else {
+            None
+        }
     }
 
     /// Sets the spectrum effect.

@@ -1,9 +1,7 @@
 use super::{GenericDevice, GenericMethods};
-use crate::{
-    capabilities::{
-        BreathEffect, Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
-        ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
-    },
+use crate::capabilities::{
+    BreathEffect, Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
+    ReactiveEffect, RippleEffect, SpectrumEffect, StaticEffect, WaveEffect,
 };
 
 /// A Razer Huntsman keyboard.
@@ -54,6 +52,14 @@ impl Huntsman {
     /// Controls the reactive effect.
     pub fn reactive_effect(&self) -> ReactiveEffect<'_> {
         ReactiveEffect(self.0.capability_base())
+    }
+
+    /// Controls the ripple effect.
+    pub fn ripple_effect(&self) -> RippleEffect<'_> {
+        RippleEffect {
+            base: self.0.capability_base(),
+            has_random_support: true,
+        }
     }
 
     /// Sets the sprectrum effect.
