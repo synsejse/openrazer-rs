@@ -2,7 +2,7 @@ use super::{GenericDevice, GenericMethods};
 use crate::{
     capabilities::{
         Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect, SpectrumEffect,
-        WaveEffect,
+        StaticEffect, WaveEffect,
     },
     Error,
 };
@@ -47,6 +47,11 @@ impl Huntsman {
     /// Sets the sprectrum effect.
     pub async fn spectrum_effect(&self) -> Result<(), Error> {
         SpectrumEffect::set(self.0.capability_base()).await
+    }
+
+    /// Controls the static effect.
+    pub fn static_effect(&self) -> StaticEffect<'_> {
+        StaticEffect(self.0.capability_base())
     }
 
     /// Controls the wave effect.

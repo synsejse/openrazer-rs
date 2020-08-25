@@ -9,7 +9,7 @@ pub use huntsman::Huntsman;
 use crate::{
     capabilities::{
         Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
-        SpectrumEffect, WaveEffect,
+        SpectrumEffect, StaticEffect, WaveEffect,
     },
     Error,
 };
@@ -106,6 +106,11 @@ impl Device {
         } else {
             Err(Error::UnsupportedCapability)
         }
+    }
+
+    /// Controls the static effect.
+    pub fn static_effect(&self) -> Option<StaticEffect<'_>> {
+        self.get_capability(StaticEffect, StaticEffect::INTERFACE, StaticEffect::METHOD)
     }
 
     /// Controls the wave effect.
