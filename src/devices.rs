@@ -8,7 +8,8 @@ pub use huntsman::Huntsman;
 
 use crate::capabilities::{
     BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode,
-    NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect, StaticEffect, WaveEffect,
+    NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect, StarlightEffect, StaticEffect,
+    WaveEffect,
 };
 
 /// A Razer device, possibly a specific one.
@@ -129,6 +130,27 @@ impl Device {
             SpectrumEffect::INTERFACE,
             SpectrumEffect::METHOD,
         )
+    }
+
+    /// Sets the starlight effect.
+    pub fn starlight_effect(&self) -> Option<StarlightEffect<'_>> {
+        let has_single_support =
+            self.has_capability(StarlightEffect::INTERFACE, StarlightEffect::METHOD_SINGLE);
+        let has_random_support =
+            self.has_capability(StarlightEffect::INTERFACE, StarlightEffect::METHOD_RANDOM);
+        let has_dual_support =
+            self.has_capability(StarlightEffect::INTERFACE, StarlightEffect::METHOD_DUAL);
+
+        if has_single_support || has_random_support || has_dual_support {
+            Some(StarlightEffect {
+                base: self.get_generic_device().capability_base(),
+                has_single_support,
+                has_dual_support,
+                has_random_support,
+            })
+        } else {
+            None
+        }
     }
 
     /// Controls the static effect.

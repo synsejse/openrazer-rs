@@ -1,7 +1,7 @@
 use super::{GenericDevice, GenericMethods};
 use crate::capabilities::{
     BreathEffect, Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
-    ReactiveEffect, RippleEffect, SpectrumEffect, StaticEffect, WaveEffect,
+    ReactiveEffect, RippleEffect, SpectrumEffect, StarlightEffect, StaticEffect, WaveEffect,
 };
 
 /// A Razer Huntsman keyboard.
@@ -65,6 +65,16 @@ impl Huntsman {
     /// Sets the sprectrum effect.
     pub fn spectrum_effect(&self) -> SpectrumEffect<'_> {
         SpectrumEffect(self.0.capability_base())
+    }
+
+    /// Controls the starlight effect.
+    pub fn starlight_effect(&self) -> StarlightEffect<'_> {
+        StarlightEffect {
+            base: self.0.capability_base(),
+            has_single_support: true,
+            has_dual_support: true,
+            has_random_support: true,
+        }
     }
 
     /// Controls the static effect.

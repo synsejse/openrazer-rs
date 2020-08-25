@@ -14,6 +14,7 @@ mod no_effect;
 pub mod reactive_effect;
 pub mod ripple_effect;
 mod spectrum_effect;
+pub mod starlight_effect;
 mod static_effect;
 pub mod wave_effect;
 
@@ -27,6 +28,7 @@ pub use no_effect::NoEffect;
 pub use reactive_effect::ReactiveEffect;
 pub use ripple_effect::RippleEffect;
 pub use spectrum_effect::SpectrumEffect;
+pub use starlight_effect::StarlightEffect;
 pub use static_effect::StaticEffect;
 pub use wave_effect::WaveEffect;
 
