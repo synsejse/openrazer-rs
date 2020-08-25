@@ -124,7 +124,7 @@ impl Device {
     }
 
     /// Sets the spectrum effect.
-    pub async fn spectrum_effect(&self) -> Option<SpectrumEffect<'_>> {
+    pub fn spectrum_effect(&self) -> Option<SpectrumEffect<'_>> {
         self.get_capability(
             SpectrumEffect,
             SpectrumEffect::INTERFACE,
