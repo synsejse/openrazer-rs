@@ -1,8 +1,4 @@
-use openrazer::{
-    devices::{Device, GenericMethods},
-    openrazer::Error::UnsupportedCapability,
-    DeviceManager,
-};
+use openrazer::{devices::GenericMethods, DeviceManager, Error::UnsupportedCapability};
 use std::error::Error;
 
 #[tokio::main]
