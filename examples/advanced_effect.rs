@@ -1,4 +1,4 @@
-use openrazer::{devices::GenericMethods, DeviceManager, Error::UnsupportedCapability};
+use openrazer::{devices::GenericMethods, DeviceManager};
 use rand::{
     distributions::{Distribution, Standard},
     random, Rng,
@@ -41,58 +41,53 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
     manager.set_sync_effect(false).await?;
 
     for device in devices {
-        let effect = random();
+        let capabilities = device.capabilities();
+        if !(capabilities.breath_effect != Default::default()
+            || capabilities.reactive_effect
+            || capabilities.spectrum_effect
+            || capabilities.wave_effect)
+        {
+            println!(
+                "Device {} doesn't support any of the effects",
+                device.name().await?
+            );
+            continue;
+        }
+
+        let effect = loop {
+            let effect = random();
+            match effect {
+                Effect::BreathSingle if capabilities.breath_effect.single => break effect,
+                Effect::BreathDual if capabilities.breath_effect.dual => break effect,
+                Effect::BreathTriple if capabilities.breath_effect.triple => break effect,
+                Effect::Reactive if capabilities.reactive_effect => break effect,
+                Effect::Spectrum if capabilities.spectrum_effect => break effect,
+                Effect::Wave if capabilities.wave_effect => break effect,
+                _ => (),
+            }
+        };
         println!("Setting {} to effect {:?}", device.name().await?, effect);
+
         match effect {
-            Effect::BreathRandom => {
-                device
-                    .breath_effect()
-                    .ok_or(UnsupportedCapability)?
-                    .random()
-                    .await?
-            }
-            Effect::BreathSingle => {
-                device
-                    .breath_effect()
-                    .ok_or(UnsupportedCapability)?
-                    .single(random())
-                    .await?
-            }
+            Effect::BreathRandom => device.breath_effect().unwrap().random().await?,
+            Effect::BreathSingle => device.breath_effect().unwrap().single(random()).await?,
             Effect::BreathDual => {
                 device
                     .breath_effect()
-                    .ok_or(UnsupportedCapability)?
+                    .unwrap()
                     .dual(random(), random())
                     .await?
             }
             Effect::BreathTriple => {
                 device
                     .breath_effect()
-                    .ok_or(UnsupportedCapability)?
+                    .unwrap()
                     .triple(random(), random(), random())
                     .await?
             }
-            Effect::Reactive => {
-                device
-                    .reactive_effect()
-                    .ok_or(UnsupportedCapability)?
-                    .medium(random())
-                    .await?
-            }
-            Effect::Spectrum => {
-                device
-                    .spectrum_effect()
-                    .ok_or(UnsupportedCapability)?
-                    .set()
-                    .await?
-            }
-            Effect::Wave => {
-                device
-                    .wave_effect()
-                    .ok_or(UnsupportedCapability)?
-                    .right()
-                    .await?
-            }
+            Effect::Reactive => device.reactive_effect().unwrap().medium(random()).await?,
+            Effect::Spectrum => device.spectrum_effect().unwrap().set().await?,
+            Effect::Wave => device.wave_effect().unwrap().right().await?,
         }
     }
 

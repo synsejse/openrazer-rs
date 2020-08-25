@@ -4,6 +4,9 @@ use crate::Error;
 use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
 
+pub mod available;
+pub use available::AvailableCapabilities;
+
 pub mod breath_effect;
 mod brightness;
 mod game_mode;

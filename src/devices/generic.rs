@@ -1,5 +1,13 @@
 use super::Huntsman;
-use crate::{capabilities::CapabilityBase, devices::Device, Error};
+use crate::{
+    capabilities::{
+        AvailableCapabilities, BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout,
+        MacroEffect, MacroMode, NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect,
+        StarlightEffect, StaticEffect, WaveEffect,
+    },
+    devices::Device,
+    Error,
+};
 use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
 use futures::future::BoxFuture;
@@ -9,15 +17,13 @@ use xmltree::Element;
 pub(crate) const DEVICE_INTERFACE: &str = "razer.device.misc";
 const INTROSPECT_INTERFACE: &str = "org.freedesktop.DBus.Introspectable";
 
-type AvailableFeatures = HashMap<String, Vec<String>>;
-
 /// Any Razer device, without device-specific methods.
 #[derive(Debug, Clone)]
 pub struct GenericDevice {
     pub(crate) dbus: DBus,
     pub(crate) serial: String,
     pub(crate) path: String,
-    pub(crate) available_features: AvailableFeatures,
+    pub(crate) available: AvailableCapabilities,
 }
 
 /// Methods available on any device.
@@ -28,6 +34,11 @@ pub trait GenericMethods {
     /// Gets the device's serial.
     fn serial(&self) -> &str {
         &self.get_generic_device().serial
+    }
+
+    /// Gets available capabilities.
+    fn capabilities(&self) -> AvailableCapabilities {
+        self.get_generic_device().available
     }
 
     /// Gets the device's name.
@@ -117,12 +128,12 @@ pub trait GenericMethods {
 impl GenericDevice {
     pub(crate) async fn new(dbus: DBus, serial: String) -> Result<Self, Error> {
         let path = format!("/org/razer/device/{}", &serial);
-        let available_features = get_available_features(&dbus, &path).await?;
+        let available_capabilities = get_available_capabilities(&dbus, &path).await?;
         Ok(Self {
             dbus,
             serial,
             path,
-            available_features,
+            available: available_capabilities,
         })
     }
 
@@ -142,7 +153,10 @@ impl GenericDevice {
     }
 }
 
-async fn get_available_features(dbus: &DBus, path: &str) -> Result<AvailableFeatures, Error> {
+async fn get_available_capabilities(
+    dbus: &DBus,
+    path: &str,
+) -> Result<AvailableCapabilities, Error> {
     let message =
         Message::method_call(crate::DESTINATION, path, INTROSPECT_INTERFACE, "Introspect");
     let response = dbus.call(message).await?;
@@ -152,7 +166,7 @@ async fn get_available_features(dbus: &DBus, path: &str) -> Result<AvailableFeat
     };
     let mut node = Element::parse(xml.as_bytes()).or(Err(Error::InvalidResponse))?;
 
-    let mut features = HashMap::new();
+    let mut capabilities = AvailableCapabilities::default();
 
     while let Some(mut interface) = node.take_child("interface") {
         let interface_name = interface
@@ -169,17 +183,62 @@ async fn get_available_features(dbus: &DBus, path: &str) -> Result<AvailableFeat
             let method_name = method
                 .attributes
                 .get("name")
-                .ok_or(Error::InvalidResponse)?
-                .to_owned();
+                .ok_or(Error::InvalidResponse)?;
 
-            features
-                .entry(interface_name.clone())
-                .or_insert_with(Vec::new)
-                .push(method_name);
+            match (interface_name.as_str(), method_name.as_str()) {
+                (BreathEffect::INTERFACE, BreathEffect::METHOD_SINGLE) => {
+                    capabilities.breath_effect.single = true
+                }
+                (BreathEffect::INTERFACE, BreathEffect::METHOD_DUAL) => {
+                    capabilities.breath_effect.dual = true
+                }
+                (BreathEffect::INTERFACE, BreathEffect::METHOD_TRIPLE) => {
+                    capabilities.breath_effect.triple = true
+                }
+                (BreathEffect::INTERFACE, BreathEffect::METHOD_RANDOM) => {
+                    capabilities.breath_effect.random = true
+                }
+                (Brightness::INTERFACE, Brightness::GET_METHOD) => capabilities.brightness = true,
+                (GameMode::INTERFACE, GameMode::GET_METHOD) => capabilities.game_mode = true,
+                (KeyboardLayout::INTERFACE, KeyboardLayout::METHOD) => {
+                    capabilities.keyboard_layout = true
+                }
+                (MacroEffect::INTERFACE, MacroEffect::GET_METHOD) => {
+                    capabilities.macro_effect = true
+                }
+                (MacroMode::INTERFACE, MacroMode::GET_METHOD) => capabilities.macro_mode = true,
+                (NoEffect::INTERFACE, NoEffect::METHOD) => capabilities.no_effect = true,
+                (ReactiveEffect::INTERFACE, ReactiveEffect::METHOD) => {
+                    capabilities.reactive_effect = true
+                }
+                (RippleEffect::INTERFACE, RippleEffect::METHOD) => {
+                    capabilities.ripple_effect.single = true
+                }
+                (RippleEffect::INTERFACE, RippleEffect::METHOD_RANDOM) => {
+                    capabilities.ripple_effect.random = true
+                }
+                (SpectrumEffect::INTERFACE, SpectrumEffect::METHOD) => {
+                    capabilities.spectrum_effect = true
+                }
+                (StarlightEffect::INTERFACE, StarlightEffect::METHOD_SINGLE) => {
+                    capabilities.starlight_effect.single = true
+                }
+                (StarlightEffect::INTERFACE, StarlightEffect::METHOD_DUAL) => {
+                    capabilities.starlight_effect.dual = true
+                }
+                (StarlightEffect::INTERFACE, StarlightEffect::METHOD_RANDOM) => {
+                    capabilities.starlight_effect.random = true
+                }
+                (StaticEffect::INTERFACE, StaticEffect::METHOD) => {
+                    capabilities.static_effect = true
+                }
+                (WaveEffect::INTERFACE, WaveEffect::METHOD) => capabilities.wave_effect = true,
+                _ => (),
+            }
         }
     }
 
-    Ok(features)
+    Ok(capabilities)
 }
 
 impl GenericMethods for GenericDevice {

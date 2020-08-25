@@ -1,6 +1,6 @@
 //! Types for controlling the ripple effect.
 
-use super::CapabilityBase;
+use super::{available::RippleEffectAvailability, CapabilityBase};
 use crate::{Color, Error};
 use dbus_message_parser::Value;
 
@@ -16,7 +16,7 @@ pub enum Mode {
 #[derive(Debug, Clone)]
 pub struct RippleEffect<'a> {
     pub(crate) base: CapabilityBase<'a>,
-    pub(crate) has_random_support: bool,
+    pub(crate) available: RippleEffectAvailability,
 }
 
 impl RippleEffect<'_> {
@@ -27,7 +27,7 @@ impl RippleEffect<'_> {
     /// Sets the ripple effect.
     pub async fn set(&self, mode: Mode, refresh_rate: f64) -> Result<(), Error> {
         match mode {
-            Mode::Single((red, green, blue)) => {
+            Mode::Single((red, green, blue)) if self.available.single => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -41,7 +41,7 @@ impl RippleEffect<'_> {
                     )
                     .await
             }
-            Mode::Random if self.has_random_support => {
+            Mode::Random if self.available.random => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -50,7 +50,7 @@ impl RippleEffect<'_> {
                     )
                     .await
             }
-            Mode::Random => Err(Error::UnsupportedCapability),
+            _ => Err(Error::UnsupportedCapability),
         }
     }
 

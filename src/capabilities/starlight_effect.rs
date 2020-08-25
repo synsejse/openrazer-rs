@@ -1,6 +1,6 @@
 //! Types for controlling the reactve effect.
 
-use super::CapabilityBase;
+use super::{available::StarlightEffectAvailability, CapabilityBase};
 use crate::{Color, Error};
 use dbus_message_parser::Value;
 
@@ -8,9 +8,7 @@ use dbus_message_parser::Value;
 #[derive(Debug, Clone)]
 pub struct StarlightEffect<'a> {
     pub(crate) base: CapabilityBase<'a>,
-    pub(crate) has_single_support: bool,
-    pub(crate) has_random_support: bool,
-    pub(crate) has_dual_support: bool,
+    pub(crate) available: StarlightEffectAvailability,
 }
 
 /// The effect's speed.
@@ -64,7 +62,7 @@ impl StarlightEffect<'_> {
     /// Sets the breath effect.
     pub async fn set(&self, mode: Mode, speed: Speed) -> Result<(), Error> {
         match mode {
-            Mode::Single((red, green, blue)) if self.has_single_support => {
+            Mode::Single((red, green, blue)) if self.available.single => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -78,7 +76,7 @@ impl StarlightEffect<'_> {
                     )
                     .await
             }
-            Mode::Dual(first, second) if self.has_dual_support => {
+            Mode::Dual(first, second) if self.available.dual => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -95,7 +93,7 @@ impl StarlightEffect<'_> {
                     )
                     .await
             }
-            Mode::Random if self.has_random_support => {
+            Mode::Random if self.available.random => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,

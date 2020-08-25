@@ -35,7 +35,11 @@ impl<'a> MacroEffect<'a> {
     /// Sets a macro effect.
     pub async fn set(&self, mode: Mode) -> Result<(), Error> {
         self.0
-            .call_set_method(Self::INTERFACE, Self::SET_METHOD, vec![Value::Int32(mode as i32)])
+            .call_set_method(
+                Self::INTERFACE,
+                Self::SET_METHOD,
+                vec![Value::Int32(mode as i32)],
+            )
             .await
     }
 

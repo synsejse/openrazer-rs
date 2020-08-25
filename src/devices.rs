@@ -7,9 +7,9 @@ pub use generic::{GenericDevice, GenericMethods};
 pub use huntsman::Huntsman;
 
 use crate::capabilities::{
-    BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode,
-    NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect, StarlightEffect, StaticEffect,
-    WaveEffect,
+    AvailableCapabilities, BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout,
+    MacroEffect, MacroMode, NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect,
+    StarlightEffect, StaticEffect, WaveEffect,
 };
 
 /// A Razer device, possibly a specific one.
@@ -34,33 +34,21 @@ pub enum Device {
 }
 
 impl Device {
-    fn has_capability(&self, interface: &'static str, method: &'static str) -> bool {
-        self.get_generic_device()
-            .available_features
-            .get(interface)
-            .map_or(false, |methods| methods.iter().any(|x| x == method))
+    fn capabilities(&self) -> AvailableCapabilities {
+        self.get_generic_device().available
     }
 
-    fn get_capability<'a, T: 'a>(
-        &'a self,
-        construct: impl FnOnce(CapabilityBase<'a>) -> T,
-        interface: &'static str,
-        method: &'static str,
-    ) -> Option<T> {
-        if self.has_capability(interface, method) {
-            Some(construct(self.get_generic_device().capability_base()))
-        } else {
-            None
-        }
+    fn capability_base(&self) -> CapabilityBase<'_> {
+        self.get_generic_device().capability_base()
     }
 
     /// Controls the breath effect.
     pub fn breath_effect(&self) -> Option<BreathEffect<'_>> {
-        if self.has_capability(BreathEffect::INTERFACE, BreathEffect::METHOD_SINGLE) {
+        let available = self.capabilities().breath_effect;
+        if available.single || available.dual || available.triple || available.random {
             Some(BreathEffect {
-                base: self.get_generic_device().capability_base(),
-                has_triple_support: self
-                    .has_capability(BreathEffect::INTERFACE, BreathEffect::METHOD_TRIPLE),
+                base: self.capability_base(),
+                available,
             })
         } else {
             None
@@ -69,54 +57,74 @@ impl Device {
 
     /// Controls the device's brightness.
     pub fn brightness(&self) -> Option<Brightness<'_>> {
-        self.get_capability(Brightness, Brightness::INTERFACE, Brightness::GET_METHOD)
+        if self.capabilities().brightness {
+            Some(Brightness(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Controls the device's Game Mode.
     pub fn game_mode(&self) -> Option<GameMode<'_>> {
-        self.get_capability(GameMode, GameMode::INTERFACE, GameMode::GET_METHOD)
+        if self.capabilities().game_mode {
+            Some(GameMode(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Gets the device's keyboard layout.
     pub fn keyboard_layout(&self) -> Option<KeyboardLayout<'_>> {
-        self.get_capability(
-            KeyboardLayout,
-            KeyboardLayout::INTERFACE,
-            KeyboardLayout::METHOD,
-        )
+        if self.capabilities().keyboard_layout {
+            Some(KeyboardLayout(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Controls the device's macro effect.
     pub fn macro_effect(&self) -> Option<MacroEffect<'_>> {
-        self.get_capability(MacroEffect, MacroEffect::INTERFACE, MacroEffect::GET_METHOD)
+        if self.capabilities().macro_effect {
+            Some(MacroEffect(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Controls the device's Macro Mode.
     pub fn macro_mode(&self) -> Option<MacroMode<'_>> {
-        self.get_capability(MacroMode, MacroMode::INTERFACE, MacroMode::GET_METHOD)
+        if self.capabilities().macro_mode {
+            Some(MacroMode(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Disables any lighting effect.
     pub fn no_effect(&self) -> Option<NoEffect<'_>> {
-        self.get_capability(NoEffect, NoEffect::INTERFACE, NoEffect::METHOD)
+        if self.capabilities().no_effect {
+            Some(NoEffect(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Controls the reactive effect.
     pub fn reactive_effect(&self) -> Option<ReactiveEffect<'_>> {
-        self.get_capability(
-            ReactiveEffect,
-            ReactiveEffect::INTERFACE,
-            ReactiveEffect::METHOD,
-        )
+        if self.capabilities().reactive_effect {
+            Some(ReactiveEffect(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Controls the ripple effect.
     pub fn ripple_effect(&self) -> Option<RippleEffect<'_>> {
-        if self.has_capability(RippleEffect::INTERFACE, RippleEffect::METHOD) {
+        let available = self.capabilities().ripple_effect;
+        if available.single || available.random {
             Some(RippleEffect {
-                base: self.get_generic_device().capability_base(),
-                has_random_support: self
-                    .has_capability(RippleEffect::INTERFACE, RippleEffect::METHOD_RANDOM),
+                base: self.capability_base(),
+                available,
             })
         } else {
             None
@@ -125,28 +133,21 @@ impl Device {
 
     /// Sets the spectrum effect.
     pub fn spectrum_effect(&self) -> Option<SpectrumEffect<'_>> {
-        self.get_capability(
-            SpectrumEffect,
-            SpectrumEffect::INTERFACE,
-            SpectrumEffect::METHOD,
-        )
+        if self.capabilities().spectrum_effect {
+            Some(SpectrumEffect(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Sets the starlight effect.
     pub fn starlight_effect(&self) -> Option<StarlightEffect<'_>> {
-        let has_single_support =
-            self.has_capability(StarlightEffect::INTERFACE, StarlightEffect::METHOD_SINGLE);
-        let has_random_support =
-            self.has_capability(StarlightEffect::INTERFACE, StarlightEffect::METHOD_RANDOM);
-        let has_dual_support =
-            self.has_capability(StarlightEffect::INTERFACE, StarlightEffect::METHOD_DUAL);
+        let available = self.capabilities().starlight_effect;
 
-        if has_single_support || has_random_support || has_dual_support {
+        if available.single || available.random || available.dual {
             Some(StarlightEffect {
-                base: self.get_generic_device().capability_base(),
-                has_single_support,
-                has_dual_support,
-                has_random_support,
+                base: self.capability_base(),
+                available,
             })
         } else {
             None
@@ -155,12 +156,20 @@ impl Device {
 
     /// Controls the static effect.
     pub fn static_effect(&self) -> Option<StaticEffect<'_>> {
-        self.get_capability(StaticEffect, StaticEffect::INTERFACE, StaticEffect::METHOD)
+        if self.capabilities().static_effect {
+            Some(StaticEffect(self.capability_base()))
+        } else {
+            None
+        }
     }
 
     /// Controls the wave effect.
     pub fn wave_effect(&self) -> Option<WaveEffect<'_>> {
-        self.get_capability(WaveEffect, WaveEffect::INTERFACE, WaveEffect::METHOD)
+        if self.capabilities().wave_effect {
+            Some(WaveEffect(self.capability_base()))
+        } else {
+            None
+        }
     }
 }
 

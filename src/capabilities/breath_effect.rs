@@ -1,4 +1,4 @@
-use super::CapabilityBase;
+use super::{available::BreathEffectAvailability, CapabilityBase};
 use crate::{Color, Error};
 use dbus_message_parser::Value;
 
@@ -16,7 +16,7 @@ pub enum Mode {
 #[derive(Debug, Clone)]
 pub struct BreathEffect<'a> {
     pub(crate) base: CapabilityBase<'a>,
-    pub(crate) has_triple_support: bool,
+    pub(crate) available: BreathEffectAvailability,
 }
 
 impl BreathEffect<'_> {
@@ -29,7 +29,7 @@ impl BreathEffect<'_> {
     /// Sets the breath effect.
     pub async fn set(&self, mode: Mode) -> Result<(), Error> {
         match mode {
-            Mode::Single((red, green, blue)) => {
+            Mode::Single((red, green, blue)) if self.available.single => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -38,7 +38,7 @@ impl BreathEffect<'_> {
                     )
                     .await
             }
-            Mode::Dual(first, second) => {
+            Mode::Dual(first, second) if self.available.dual => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -54,7 +54,7 @@ impl BreathEffect<'_> {
                     )
                     .await
             }
-            Mode::Triple(first, second, third) if self.has_triple_support => {
+            Mode::Triple(first, second, third) if self.available.triple => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -73,12 +73,12 @@ impl BreathEffect<'_> {
                     )
                     .await
             }
-            Mode::Triple(..) => Err(Error::UnsupportedCapability),
-            Mode::Random => {
+            Mode::Random if self.available.random => {
                 self.base
                     .call_set_method(Self::INTERFACE, Self::METHOD_RANDOM, Vec::new())
                     .await
             }
+            _ => Err(Error::UnsupportedCapability),
         }
     }
 
