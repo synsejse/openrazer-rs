@@ -1,6 +1,6 @@
 use super::{GenericDevice, GenericMethods};
 use crate::{
-    capabilities::{Brightness, GameMode, KeyboardLayout, MacroMode, MacroEffect},
+    capabilities::{Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, WaveEffect},
     Error,
 };
 
@@ -34,6 +34,11 @@ impl Huntsman {
     /// Controls Macro Mode.
     pub fn macro_mode(&self) -> MacroMode<'_> {
         MacroMode(self.0.capability_base())
+    }
+
+    /// Controls the wave effect.
+    pub fn wave_effect(&self) -> WaveEffect<'_> {
+        WaveEffect(self.0.capability_base())
     }
 }
 

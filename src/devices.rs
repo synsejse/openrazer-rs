@@ -7,7 +7,9 @@ pub use generic::{GenericDevice, GenericMethods};
 pub use huntsman::Huntsman;
 
 use crate::{
-    capabilities::{Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode},
+    capabilities::{
+        Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode, WaveEffect,
+    },
     Error,
 };
 
@@ -85,6 +87,11 @@ impl Device {
     /// Controls the device's Macro Mode.
     pub fn macro_mode(&self) -> Option<MacroMode<'_>> {
         self.get_capability(MacroMode, MacroMode::INTERFACE, MacroMode::GET_METHOD)
+    }
+
+    /// Controls the wave effect..
+    pub fn wave_effect(&self) -> Option<WaveEffect<'_>> {
+        self.get_capability(WaveEffect, WaveEffect::INTERFACE, WaveEffect::METHOD)
     }
 }
 

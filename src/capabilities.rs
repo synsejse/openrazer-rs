@@ -9,12 +9,14 @@ mod game_mode;
 mod keyboard_layout;
 pub mod macro_effect;
 mod macro_mode;
+pub mod wave_effect;
 
 pub use brightness::Brightness;
 pub use game_mode::GameMode;
 pub(crate) use keyboard_layout::KeyboardLayout;
 pub use macro_effect::MacroEffect;
 pub use macro_mode::MacroMode;
+pub use wave_effect::WaveEffect;
 
 #[derive(Debug, Clone)]
 pub(crate) struct CapabilityBase<'a> {
