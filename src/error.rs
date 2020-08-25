@@ -8,13 +8,16 @@ pub enum Error {
     DBusError(DBusError),
     /// The returned message failed to parse.
     InvalidResponse,
+    /// A device doesn't have support for the requested capability.
+    UnsupportedCapability,
 }
 
 impl Display for Error {
     fn fmt(&self, formatter: &mut Formatter<'_>) -> fmt::Result {
         match self {
             Error::DBusError(error) => Display::fmt(error, formatter),
-            Error::InvalidResponse => formatter.write_str("Received invalid response"),
+            Error::InvalidResponse => formatter.write_str("Invalid response from daemon"),
+            Error::UnsupportedCapability => formatter.write_str("Unsupported capablity"),
         }
     }
 }

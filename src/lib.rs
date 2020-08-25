@@ -1,9 +1,10 @@
-pub mod devices;
+pub mod capabilities;
 mod device_manager;
+pub mod devices;
 mod error;
 
-pub use devices::Device;
 pub use device_manager::DeviceManager;
+pub use devices::Device;
 pub use error::Error;
 
 pub(crate) const DESTINATION: &str = "org.razer";

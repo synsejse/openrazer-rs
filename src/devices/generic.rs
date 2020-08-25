@@ -1,7 +1,5 @@
-use crate::{
-    devices::{Device, Keyboard},
-    Error,
-};
+use super::Huntsman;
+use crate::{capabilities::CapabilityBase, devices::Device, Error};
 use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
 use futures::future::BoxFuture;
@@ -9,7 +7,6 @@ use std::collections::HashMap;
 use xmltree::Element;
 
 pub(crate) const DEVICE_INTERFACE: &str = "razer.device.misc";
-const BRIGHTNESS_INTERFACE: &str = "razer.device.lighting.brightness";
 const INTROSPECT_INTERFACE: &str = "org.freedesktop.DBus.Introspectable";
 
 type AvailableFeatures = HashMap<String, Vec<String>>;
@@ -29,12 +26,12 @@ pub trait GenericMethods {
     fn get_generic_device(&self) -> &GenericDevice;
 
     /// Gets the device's serial.
-    fn get_serial(&self) -> &str {
+    fn serial(&self) -> &str {
         &self.get_generic_device().serial
     }
 
     /// Gets the device's name.
-    fn get_name(&self) -> BoxFuture<'_, Result<String, Error>> {
+    fn name(&self) -> BoxFuture<'_, Result<String, Error>> {
         let device = self.get_generic_device();
         Box::pin(async move {
             let (_, body) = device
@@ -51,7 +48,7 @@ pub trait GenericMethods {
     }
 
     /// Gets the device's firmware version.
-    fn get_firmware_version(&self) -> BoxFuture<'_, Result<String, Error>> {
+    fn firmware_version(&self) -> BoxFuture<'_, Result<String, Error>> {
         let device = self.get_generic_device();
         Box::pin(async move {
             let (_, body) = device
@@ -68,7 +65,7 @@ pub trait GenericMethods {
     }
 
     /// Gets the driver version for the device.
-    fn get_driver_version(&self) -> BoxFuture<'_, Result<String, Error>> {
+    fn driver_version(&self) -> BoxFuture<'_, Result<String, Error>> {
         let device = self.get_generic_device();
         Box::pin(async move {
             let (_, body) = device
@@ -81,40 +78,6 @@ pub trait GenericMethods {
                 Some(Value::String(version)) => Ok(version),
                 _ => Err(Error::InvalidResponse),
             }
-        })
-    }
-
-    /// Gets the device's lighting brightness.
-    fn get_brightness(&self) -> BoxFuture<'_, Result<f64, Error>> {
-        let device = self.get_generic_device();
-        Box::pin(async move {
-            let response = device
-                .dbus
-                .call(device.message(BRIGHTNESS_INTERFACE, "getBrightness"))
-                .await?;
-
-            match response.get_body() {
-                [Value::Double(brightness)] => Ok(*brightness),
-                _ => Err(Error::InvalidResponse),
-            }
-        })
-    }
-
-    /// Sets the device's lighting brightness.
-    ///
-    /// # Panics
-    ///
-    /// Panics if `brightness` is not in range `0.0..=100.0`.
-    fn set_brightness(&self, brightness: f64) -> BoxFuture<'_, Result<(), Error>> {
-        assert!(0.0 <= brightness && brightness <= 100.0);
-
-        let device = self.get_generic_device();
-        Box::pin(async move {
-            let mut message = device.message(BRIGHTNESS_INTERFACE, "setBrightness");
-            message.add_value(Value::Double(brightness));
-
-            device.dbus.call(message).await?;
-            Ok(())
         })
     }
 
@@ -135,7 +98,7 @@ pub trait GenericMethods {
     }
 
     /// Gets Razer URLs.
-    fn get_razer_urls(&self) -> BoxFuture<'_, Result<HashMap<String, String>, Error>> {
+    fn razer_urls(&self) -> BoxFuture<'_, Result<HashMap<String, String>, Error>> {
         let device = self.get_generic_device();
         Box::pin(async move {
             let response = device
@@ -167,21 +130,13 @@ impl GenericDevice {
         Message::method_call(crate::DESTINATION, self.path.as_str(), interface, method)
     }
 
+    pub(crate) fn capability_base(&self) -> CapabilityBase<'_> {
+        CapabilityBase::new(self.dbus.clone(), &self.path)
+    }
+
     pub(crate) async fn into_device(self) -> Result<Device, Error> {
-        let response = self
-            .dbus
-            .call(self.message(DEVICE_INTERFACE, "getDeviceType"))
-            .await?;
-
-        let device_type = match response.get_body() {
-            [Value::String(device_type)] => device_type.as_str(),
-            _ => return Err(Error::InvalidResponse),
-        };
-
-        Ok(match device_type {
-            "keyboard" | "keypad" => Device::Keyboard(Keyboard::new(self)),
-            // todo: "mouse"
-            // todo: "mousemat"
+        Ok(match self.name().await?.as_str() {
+            Huntsman::NAME => Device::Huntsman(Huntsman(self)),
             _ => Device::Other(self),
         })
     }
