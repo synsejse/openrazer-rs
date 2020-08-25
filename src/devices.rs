@@ -9,7 +9,7 @@ pub use huntsman::Huntsman;
 use crate::{
     capabilities::{
         Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
-        WaveEffect,
+        SpectrumEffect, WaveEffect,
     },
     Error,
 };
@@ -94,6 +94,15 @@ impl Device {
     pub async fn disable_lighting(&self) -> Result<(), Error> {
         if self.has_capability(NoEffect::INTERFACE, NoEffect::METHOD) {
             NoEffect::set(self.get_generic_device().capability_base()).await
+        } else {
+            Err(Error::UnsupportedCapability)
+        }
+    }
+
+    /// Sets the spectrum effect.
+    pub async fn spectrum_effect(&self) -> Result<(), Error> {
+        if self.has_capability(SpectrumEffect::INTERFACE, SpectrumEffect::METHOD) {
+            SpectrumEffect::set(self.get_generic_device().capability_base()).await
         } else {
             Err(Error::UnsupportedCapability)
         }

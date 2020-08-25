@@ -10,6 +10,7 @@ mod keyboard_layout;
 pub mod macro_effect;
 mod macro_mode;
 mod no_effect;
+mod spectrum_effect;
 pub mod wave_effect;
 
 pub use brightness::Brightness;
@@ -18,6 +19,7 @@ pub(crate) use keyboard_layout::KeyboardLayout;
 pub use macro_effect::MacroEffect;
 pub use macro_mode::MacroMode;
 pub(crate) use no_effect::NoEffect;
+pub(crate) use spectrum_effect::SpectrumEffect;
 pub use wave_effect::WaveEffect;
 
 #[derive(Debug, Clone)]
