@@ -1,5 +1,5 @@
 use super::CapabilityBase;
-use crate::Error;
+use crate::{Color, Error};
 use dbus_message_parser::Value;
 
 /// Controls the static effect.
@@ -10,7 +10,7 @@ impl StaticEffect<'_> {
     pub(crate) const METHOD: &'static str = "setStatic";
 
     /// Sets the static effect.
-    pub async fn set(&self, (red, green, blue): (u8, u8, u8)) -> Result<(), Error> {
+    pub async fn set(&self, (red, green, blue): Color) -> Result<(), Error> {
         self.0
             .call_set_method(
                 Self::INTERFACE,

@@ -1,7 +1,7 @@
 //! Types for controlling the reactve effect.
 
 use super::CapabilityBase;
-use crate::Error;
+use crate::{Color, Error};
 use dbus_message_parser::Value;
 
 /// Controls the reactive effect.
@@ -23,7 +23,7 @@ impl ReactiveEffect<'_> {
     pub(crate) const METHOD: &'static str = "setReactive";
 
     /// Sets the reactive effect.
-    pub async fn set(&self, (red, green, blue): (u8, u8, u8), speed: Speed) -> Result<(), Error> {
+    pub async fn set(&self, (red, green, blue): Color, speed: Speed) -> Result<(), Error> {
         self.0
             .call_set_method(
                 Self::INTERFACE,
@@ -39,22 +39,22 @@ impl ReactiveEffect<'_> {
     }
 
     /// Sets the reactive effect with `Speed::Fast`.
-    pub async fn fast(&self, color: (u8, u8, u8)) -> Result<(), Error> {
+    pub async fn fast(&self, color: Color) -> Result<(), Error> {
         self.set(color, Speed::Fast).await
     }
 
     /// Sets the reactive effect with `Speed::Medium`.
-    pub async fn medium(&self, color: (u8, u8, u8)) -> Result<(), Error> {
+    pub async fn medium(&self, color: Color) -> Result<(), Error> {
         self.set(color, Speed::Medium).await
     }
 
     /// Sets the reactive effect with `Speed::Slow`.
-    pub async fn slow(&self, color: (u8, u8, u8)) -> Result<(), Error> {
+    pub async fn slow(&self, color: Color) -> Result<(), Error> {
         self.set(color, Speed::Slow).await
     }
 
     /// Sets the reactive effect with `Speed::VerySlow`.
-    pub async fn very_slow(&self, color: (u8, u8, u8)) -> Result<(), Error> {
+    pub async fn very_slow(&self, color: Color) -> Result<(), Error> {
         self.set(color, Speed::VerySlow).await
     }
 }

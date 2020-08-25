@@ -8,3 +8,5 @@ pub use devices::Device;
 pub use error::Error;
 
 pub(crate) const DESTINATION: &str = "org.razer";
+
+pub type Color = (u8, u8, u8);
