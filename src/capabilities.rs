@@ -4,6 +4,7 @@ use crate::Error;
 use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
 
+pub mod breath_effect;
 mod brightness;
 mod game_mode;
 mod keyboard_layout;
@@ -15,6 +16,7 @@ mod spectrum_effect;
 mod static_effect;
 pub mod wave_effect;
 
+pub use breath_effect::BreathEffect;
 pub use brightness::Brightness;
 pub use game_mode::GameMode;
 pub(crate) use keyboard_layout::KeyboardLayout;

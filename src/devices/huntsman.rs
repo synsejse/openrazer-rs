@@ -1,8 +1,8 @@
 use super::{GenericDevice, GenericMethods};
 use crate::{
     capabilities::{
-        Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect, ReactiveEffect,
-        SpectrumEffect, StaticEffect, WaveEffect,
+        BreathEffect, Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
+        ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
     },
     Error,
 };
@@ -13,6 +13,14 @@ pub struct Huntsman(pub(crate) GenericDevice);
 
 impl Huntsman {
     pub const NAME: &'static str = "Razer Huntsman";
+
+    /// Controls the breath effect.
+    pub fn breath_effect(&self) -> BreathEffect<'_> {
+        BreathEffect {
+            base: self.0.capability_base(),
+            has_triple_support: false,
+        }
+    }
 
     /// Controls brightness.
     pub fn brightness(&self) -> Brightness<'_> {

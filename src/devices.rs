@@ -8,8 +8,8 @@ pub use huntsman::Huntsman;
 
 use crate::{
     capabilities::{
-        Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
-        ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
+        BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode,
+        NoEffect, ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
     },
     Error,
 };
@@ -56,6 +56,19 @@ impl Device {
     ) -> Option<T> {
         if self.has_capability(interface, method) {
             Some(construct(self.get_generic_device().capability_base()))
+        } else {
+            None
+        }
+    }
+
+    /// Controls the breath effect.
+    pub fn breath_effect(&self) -> Option<BreathEffect<'_>> {
+        if self.has_capability(BreathEffect::INTERFACE, BreathEffect::METHOD_SINGLE) {
+            Some(BreathEffect {
+                base: self.get_generic_device().capability_base(),
+                has_triple_support: self
+                    .has_capability(BreathEffect::INTERFACE, BreathEffect::METHOD_TRIPLE),
+            })
         } else {
             None
         }
