@@ -9,7 +9,7 @@ pub use huntsman::Huntsman;
 use crate::{
     capabilities::{
         Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
-        SpectrumEffect, StaticEffect, WaveEffect,
+        ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
     },
     Error,
 };
@@ -97,6 +97,15 @@ impl Device {
         } else {
             Err(Error::UnsupportedCapability)
         }
+    }
+
+    /// Controls the reactive effect.
+    pub fn reactive_effect(&self) -> Option<ReactiveEffect<'_>> {
+        self.get_capability(
+            ReactiveEffect,
+            ReactiveEffect::INTERFACE,
+            ReactiveEffect::METHOD,
+        )
     }
 
     /// Sets the spectrum effect.

@@ -1,8 +1,8 @@
 use super::{GenericDevice, GenericMethods};
 use crate::{
     capabilities::{
-        Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect, SpectrumEffect,
-        StaticEffect, WaveEffect,
+        Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect, ReactiveEffect,
+        SpectrumEffect, StaticEffect, WaveEffect,
     },
     Error,
 };
@@ -42,6 +42,11 @@ impl Huntsman {
     /// Removes any lighting effect.
     pub async fn disable_lighting(&self) -> Result<(), Error> {
         NoEffect::set(self.0.capability_base()).await
+    }
+
+    /// Controls the reactive effect.
+    pub async fn reactive_effect(&self) -> ReactiveEffect<'_> {
+        ReactiveEffect(self.0.capability_base())
     }
 
     /// Sets the sprectrum effect.
