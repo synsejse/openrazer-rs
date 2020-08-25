@@ -1,14 +1,17 @@
 use super::CapabilityBase;
 use crate::Error;
 
-pub struct SpectrumEffect;
+/// Controls the spectrum effect.
+#[derive(Debug, Clone)]
+pub struct SpectrumEffect<'a>(pub(crate) CapabilityBase<'a>);
 
-impl SpectrumEffect {
+impl SpectrumEffect<'_> {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD: &'static str = "setSpectrum";
 
-    pub(crate) async fn set(capability_base: CapabilityBase<'_>) -> Result<(), Error> {
-        capability_base
+    /// Sets the spectrum effect.
+    pub async fn set(&self) -> Result<(), Error> {
+        self.0
             .call_set_method(Self::INTERFACE, Self::METHOD, vec![])
             .await
     }

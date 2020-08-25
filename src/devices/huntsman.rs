@@ -4,7 +4,6 @@ use crate::{
         BreathEffect, Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
         ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
     },
-    Error,
 };
 
 /// A Razer Huntsman keyboard.
@@ -33,8 +32,8 @@ impl Huntsman {
     }
 
     /// Gets the keyboard's layout.
-    pub async fn keyboard_layout(&self) -> Result<String, Error> {
-        KeyboardLayout::get(self.0.capability_base()).await
+    pub fn keyboard_layout(&self) -> KeyboardLayout<'_> {
+        KeyboardLayout(self.0.capability_base())
     }
 
     /// Controls the macro effect.
@@ -47,19 +46,19 @@ impl Huntsman {
         MacroMode(self.0.capability_base())
     }
 
-    /// Removes any lighting effect.
-    pub async fn disable_lighting(&self) -> Result<(), Error> {
-        NoEffect::set(self.0.capability_base()).await
+    /// Disables any lighting effect.
+    pub fn no_effect(&self) -> NoEffect<'_> {
+        NoEffect(self.0.capability_base())
     }
 
     /// Controls the reactive effect.
-    pub async fn reactive_effect(&self) -> ReactiveEffect<'_> {
+    pub fn reactive_effect(&self) -> ReactiveEffect<'_> {
         ReactiveEffect(self.0.capability_base())
     }
 
     /// Sets the sprectrum effect.
-    pub async fn spectrum_effect(&self) -> Result<(), Error> {
-        SpectrumEffect::set(self.0.capability_base()).await
+    pub fn spectrum_effect(&self) -> SpectrumEffect<'_> {
+        SpectrumEffect(self.0.capability_base())
     }
 
     /// Controls the static effect.

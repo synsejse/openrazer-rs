@@ -19,12 +19,12 @@ pub mod wave_effect;
 pub use breath_effect::BreathEffect;
 pub use brightness::Brightness;
 pub use game_mode::GameMode;
-pub(crate) use keyboard_layout::KeyboardLayout;
+pub use keyboard_layout::KeyboardLayout;
 pub use macro_effect::MacroEffect;
 pub use macro_mode::MacroMode;
-pub(crate) use no_effect::NoEffect;
+pub use no_effect::NoEffect;
 pub use reactive_effect::ReactiveEffect;
-pub(crate) use spectrum_effect::SpectrumEffect;
+pub use spectrum_effect::SpectrumEffect;
 pub use static_effect::StaticEffect;
 pub use wave_effect::WaveEffect;
 

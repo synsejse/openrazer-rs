@@ -2,14 +2,16 @@ use super::CapabilityBase;
 use crate::Error;
 use dbus_message_parser::Value;
 
-pub struct KeyboardLayout;
+/// Gets a device's keyboard layout.
+#[derive(Debug, Clone)]
+pub struct KeyboardLayout<'a>(pub(crate) CapabilityBase<'a>);
 
-impl KeyboardLayout {
+impl KeyboardLayout<'_> {
     pub(crate) const INTERFACE: &'static str = "razer.device.misc";
     pub(crate) const METHOD: &'static str = "getKeyboardLayout";
 
-    pub(crate) async fn get(capability_base: CapabilityBase<'_>) -> Result<String, Error> {
-        capability_base
+    pub async fn get(&self) -> Result<String, Error> {
+        self.0
             .call_get_method(Self::INTERFACE, Self::METHOD)
             .await
             .and_then(|response| match response {

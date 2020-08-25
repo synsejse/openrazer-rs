@@ -6,12 +6,9 @@ mod huntsman;
 pub use generic::{GenericDevice, GenericMethods};
 pub use huntsman::Huntsman;
 
-use crate::{
-    capabilities::{
-        BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode,
-        NoEffect, ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
-    },
-    Error,
+use crate::capabilities::{
+    BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode,
+    NoEffect, ReactiveEffect, SpectrumEffect, StaticEffect, WaveEffect,
 };
 
 /// A Razer device, possibly a specific one.
@@ -19,12 +16,7 @@ use crate::{
 /// This enum represents some Razer device. It has methods for each capability
 /// (e.g. brightness, effects and keyboard layout), but these methods check that
 /// the capability is present, because they operate on an unkonwn device.
-/// For read-and-write capabilities (e.g. brightness), a special struct is
-/// returned if the capability is present and `None` otherwise. For read-only
-/// or write-only capabilities (e.g. keyboard layout or effects), these methods
-/// return `Err(Error::UnsupportedCapability)` if the capability isn't
-/// present, otherwise the methods do their job (e.g. read the keyboard layout
-/// or set an effect).
+/// If it is, then a special struct, which controls the capatibily, is returned.
 ///
 /// This crate also has types for specific devices, e.g. Razer Hunstman. If the
 /// underlying device is known to this crate, it will construct a variant for
@@ -85,12 +77,12 @@ impl Device {
     }
 
     /// Gets the device's keyboard layout.
-    pub async fn keyboard_layout(&self) -> Result<String, Error> {
-        if self.has_capability(KeyboardLayout::INTERFACE, KeyboardLayout::METHOD) {
-            KeyboardLayout::get(self.get_generic_device().capability_base()).await
-        } else {
-            Err(Error::UnsupportedCapability)
-        }
+    pub fn keyboard_layout(&self) -> Option<KeyboardLayout<'_>> {
+        self.get_capability(
+            KeyboardLayout,
+            KeyboardLayout::INTERFACE,
+            KeyboardLayout::METHOD,
+        )
     }
 
     /// Controls the device's macro effect.
@@ -103,13 +95,9 @@ impl Device {
         self.get_capability(MacroMode, MacroMode::INTERFACE, MacroMode::GET_METHOD)
     }
 
-    /// Removes any lighting effect.
-    pub async fn disable_lighting(&self) -> Result<(), Error> {
-        if self.has_capability(NoEffect::INTERFACE, NoEffect::METHOD) {
-            NoEffect::set(self.get_generic_device().capability_base()).await
-        } else {
-            Err(Error::UnsupportedCapability)
-        }
+    /// Disables any lighting effect.
+    pub fn no_effect(&self) -> Option<NoEffect<'_>> {
+        self.get_capability(NoEffect, NoEffect::INTERFACE, NoEffect::METHOD)
     }
 
     /// Controls the reactive effect.
@@ -122,12 +110,12 @@ impl Device {
     }
 
     /// Sets the spectrum effect.
-    pub async fn spectrum_effect(&self) -> Result<(), Error> {
-        if self.has_capability(SpectrumEffect::INTERFACE, SpectrumEffect::METHOD) {
-            SpectrumEffect::set(self.get_generic_device().capability_base()).await
-        } else {
-            Err(Error::UnsupportedCapability)
-        }
+    pub async fn spectrum_effect(&self) -> Option<SpectrumEffect<'_>> {
+        self.get_capability(
+            SpectrumEffect,
+            SpectrumEffect::INTERFACE,
+            SpectrumEffect::METHOD,
+        )
     }
 
     /// Controls the static effect.
