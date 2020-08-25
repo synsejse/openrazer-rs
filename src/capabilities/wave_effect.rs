@@ -5,6 +5,7 @@ use crate::Error;
 use dbus_message_parser::Value;
 
 /// Controls the wave effect.
+#[derive(Debug, Clone)]
 pub struct WaveEffect<'a>(pub(crate) CapabilityBase<'a>);
 
 pub enum WaveDirection {

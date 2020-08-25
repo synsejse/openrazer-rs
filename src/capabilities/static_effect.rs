@@ -3,6 +3,7 @@ use crate::{Color, Error};
 use dbus_message_parser::Value;
 
 /// Controls the static effect.
+#[derive(Debug, Clone)]
 pub struct StaticEffect<'a>(pub(crate) CapabilityBase<'a>);
 
 impl StaticEffect<'_> {

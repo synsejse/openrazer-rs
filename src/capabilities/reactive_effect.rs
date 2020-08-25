@@ -5,8 +5,11 @@ use crate::{Color, Error};
 use dbus_message_parser::Value;
 
 /// Controls the reactive effect.
+#[derive(Debug, Clone)]
 pub struct ReactiveEffect<'a>(pub(crate) CapabilityBase<'a>);
 
+/// The effect's speed.
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Hash)]
 pub enum Speed {
     /// The reaction stays for 500ms.
     Fast = 1,
