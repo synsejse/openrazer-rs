@@ -25,7 +25,7 @@ impl<'a> GameMode<'a> {
     /// Sets Game Mode status.
     pub async fn set(&self, is_enabled: bool) -> Result<(), Error> {
         self.0
-            .call_set_method(Self::INTERFACE, Self::SET_METHOD, Value::Boolean(is_enabled))
+            .call_set_method(Self::INTERFACE, Self::SET_METHOD, vec![Value::Boolean(is_enabled)])
             .await
     }
 

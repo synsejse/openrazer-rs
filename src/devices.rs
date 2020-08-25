@@ -8,7 +8,8 @@ pub use huntsman::Huntsman;
 
 use crate::{
     capabilities::{
-        Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode, WaveEffect,
+        Brightness, CapabilityBase, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
+        WaveEffect,
     },
     Error,
 };
@@ -89,7 +90,16 @@ impl Device {
         self.get_capability(MacroMode, MacroMode::INTERFACE, MacroMode::GET_METHOD)
     }
 
-    /// Controls the wave effect..
+    /// Removes any lighting effect.
+    pub async fn disable_lighting(&self) -> Result<(), Error> {
+        if self.has_capability(NoEffect::INTERFACE, NoEffect::METHOD) {
+            NoEffect::set(self.get_generic_device().capability_base()).await
+        } else {
+            Err(Error::UnsupportedCapability)
+        }
+    }
+
+    /// Controls the wave effect.
     pub fn wave_effect(&self) -> Option<WaveEffect<'_>> {
         self.get_capability(WaveEffect, WaveEffect::INTERFACE, WaveEffect::METHOD)
     }

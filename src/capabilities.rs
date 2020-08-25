@@ -9,6 +9,7 @@ mod game_mode;
 mod keyboard_layout;
 pub mod macro_effect;
 mod macro_mode;
+mod no_effect;
 pub mod wave_effect;
 
 pub use brightness::Brightness;
@@ -16,6 +17,7 @@ pub use game_mode::GameMode;
 pub(crate) use keyboard_layout::KeyboardLayout;
 pub use macro_effect::MacroEffect;
 pub use macro_mode::MacroMode;
+pub(crate) use no_effect::NoEffect;
 pub use wave_effect::WaveEffect;
 
 #[derive(Debug, Clone)]
@@ -55,10 +57,10 @@ impl<'a> CapabilityBase<'a> {
         &self,
         interface: &'static str,
         method: &'static str,
-        value: Value,
+        body: Vec<Value>,
     ) -> Result<(), Error> {
         let mut message = self.message(interface, method);
-        message.add_value(value);
+        body.into_iter().for_each(|value| message.add_value(value));
         let (_, body) = self.dbus.call(message).await?.split();
 
         if body.is_empty() {

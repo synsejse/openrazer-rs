@@ -31,7 +31,11 @@ impl<'a> Brightness<'a> {
         assert!(0.0 <= brightness && brightness <= 100.0);
 
         self.0
-            .call_set_method(Self::INTERFACE, Self::SET_METHOD, Value::Double(brightness))
+            .call_set_method(
+                Self::INTERFACE,
+                Self::SET_METHOD,
+                vec![Value::Double(brightness)],
+            )
             .await
     }
 

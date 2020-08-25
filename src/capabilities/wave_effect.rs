@@ -22,7 +22,7 @@ impl WaveEffect<'_> {
             .call_set_method(
                 Self::INTERFACE,
                 Self::METHOD,
-                Value::Int32(direction as i32),
+                vec![Value::Int32(direction as i32)],
             )
             .await
     }

@@ -28,7 +28,7 @@ impl<'a> MacroMode<'a> {
             .call_set_method(
                 Self::INTERFACE,
                 Self::SET_METHOD,
-                Value::Boolean(is_enabled),
+                vec![Value::Boolean(is_enabled)],
             )
             .await
     }
