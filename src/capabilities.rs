@@ -3,6 +3,7 @@
 use crate::Error;
 use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
+use std::sync::Arc;
 
 pub mod available;
 pub use available::AvailableCapabilities;
@@ -36,18 +37,18 @@ pub use static_effect::StaticEffect;
 pub use wave_effect::WaveEffect;
 
 #[derive(Debug, Clone)]
-pub(crate) struct CapabilityBase<'a> {
+pub(crate) struct CapabilityBase {
     dbus: DBus,
-    path: &'a str,
+    path: Arc<str>,
 }
 
-impl<'a> CapabilityBase<'a> {
-    pub(crate) fn new(dbus: DBus, path: &'a str) -> Self {
+impl CapabilityBase {
+    pub(crate) fn new(dbus: DBus, path: Arc<str>) -> Self {
         Self { dbus, path }
     }
 
     fn message(&self, interface: &'static str, method: &'static str) -> Message {
-        Message::method_call(crate::DESTINATION, self.path, interface, method)
+        Message::method_call(crate::DESTINATION, &self.path, interface, method)
     }
 
     async fn call_get_method(

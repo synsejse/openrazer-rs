@@ -6,8 +6,8 @@ use dbus_message_parser::Value;
 
 /// Controls the reactive effect.
 #[derive(Debug, Clone)]
-pub struct StarlightEffect<'a> {
-    pub(crate) base: CapabilityBase<'a>,
+pub struct StarlightEffect {
+    pub(crate) base: CapabilityBase,
     pub(crate) available: StarlightEffectAvailability,
 }
 
@@ -53,7 +53,7 @@ pub enum Mode {
     Random,
 }
 
-impl StarlightEffect<'_> {
+impl StarlightEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD_SINGLE: &'static str = "setStarlightSingle";
     pub(crate) const METHOD_DUAL: &'static str = "setStarlightDual";

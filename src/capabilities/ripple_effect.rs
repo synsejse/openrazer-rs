@@ -14,12 +14,12 @@ pub enum Mode {
 
 /// Controls the ripple effect.
 #[derive(Debug, Clone)]
-pub struct RippleEffect<'a> {
-    pub(crate) base: CapabilityBase<'a>,
+pub struct RippleEffect {
+    pub(crate) base: CapabilityBase,
     pub(crate) available: RippleEffectAvailability,
 }
 
-impl RippleEffect<'_> {
+impl RippleEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.custom";
     pub(crate) const METHOD: &'static str = "setRipple";
     pub(crate) const METHOD_RANDOM: &'static str = "setRippleRandomColour";

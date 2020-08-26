@@ -3,9 +3,9 @@ use crate::Error;
 
 /// Disables any lighting effect.
 #[derive(Debug, Clone)]
-pub struct NoEffect<'a>(pub(crate) CapabilityBase<'a>);
+pub struct NoEffect(pub(crate) CapabilityBase);
 
-impl NoEffect<'_> {
+impl NoEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD: &'static str = "setNone";
 

@@ -4,9 +4,9 @@ use dbus_message_parser::Value;
 
 /// Controls a device's brightness.
 #[derive(Debug, Clone)]
-pub struct Brightness<'a>(pub(crate) CapabilityBase<'a>);
+pub struct Brightness(pub(crate) CapabilityBase);
 
-impl<'a> Brightness<'a> {
+impl Brightness {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.brightness";
     pub(crate) const GET_METHOD: &'static str = "getBrightness";
     const SET_METHOD: &'static str = "setBrightness";

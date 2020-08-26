@@ -6,14 +6,14 @@ use dbus_message_parser::Value;
 
 /// Controls the wave effect.
 #[derive(Debug, Clone)]
-pub struct WaveEffect<'a>(pub(crate) CapabilityBase<'a>);
+pub struct WaveEffect(pub(crate) CapabilityBase);
 
 pub enum WaveDirection {
     Right = 1,
     Left = 2,
 }
 
-impl WaveEffect<'_> {
+impl WaveEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD: &'static str = "setWave";
 

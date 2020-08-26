@@ -3,9 +3,9 @@ use crate::Error;
 
 /// Controls the spectrum effect.
 #[derive(Debug, Clone)]
-pub struct SpectrumEffect<'a>(pub(crate) CapabilityBase<'a>);
+pub struct SpectrumEffect(pub(crate) CapabilityBase);
 
-impl SpectrumEffect<'_> {
+impl SpectrumEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD: &'static str = "setSpectrum";
 

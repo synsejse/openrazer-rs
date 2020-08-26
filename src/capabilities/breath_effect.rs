@@ -14,12 +14,12 @@ pub enum Mode {
 
 /// Controls the breath effect.
 #[derive(Debug, Clone)]
-pub struct BreathEffect<'a> {
-    pub(crate) base: CapabilityBase<'a>,
+pub struct BreathEffect {
+    pub(crate) base: CapabilityBase,
     pub(crate) available: BreathEffectAvailability,
 }
 
-impl BreathEffect<'_> {
+impl BreathEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD_SINGLE: &'static str = "setBreathSingle";
     pub(crate) const METHOD_DUAL: &'static str = "setBreathDual";

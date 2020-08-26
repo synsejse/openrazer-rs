@@ -11,7 +11,7 @@ use crate::{
 use dbus_async::DBus;
 use dbus_message_parser::{Message, Value};
 use futures::future::BoxFuture;
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::Arc};
 use xmltree::Element;
 
 pub(crate) const DEVICE_INTERFACE: &str = "razer.device.misc";
@@ -22,7 +22,7 @@ const INTROSPECT_INTERFACE: &str = "org.freedesktop.DBus.Introspectable";
 pub struct GenericDevice {
     pub(crate) dbus: DBus,
     pub(crate) serial: String,
-    pub(crate) path: String,
+    pub(crate) path: Arc<str>,
     pub(crate) available: AvailableCapabilities,
 }
 
@@ -132,17 +132,17 @@ impl GenericDevice {
         Ok(Self {
             dbus,
             serial,
-            path,
+            path: path.into(),
             available: available_capabilities,
         })
     }
 
     pub(crate) fn message(&self, interface: &'static str, method: &'static str) -> Message {
-        Message::method_call(crate::DESTINATION, self.path.as_str(), interface, method)
+        Message::method_call(crate::DESTINATION, &self.path, interface, method)
     }
 
-    pub(crate) fn capability_base(&self) -> CapabilityBase<'_> {
-        CapabilityBase::new(self.dbus.clone(), &self.path)
+    pub(crate) fn capability_base(&self) -> CapabilityBase {
+        CapabilityBase::new(self.dbus.clone(), Arc::clone(&self.path))
     }
 
     pub(crate) async fn into_device(self) -> Result<Device, Error> {

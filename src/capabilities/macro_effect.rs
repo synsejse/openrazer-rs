@@ -13,9 +13,9 @@ pub enum Mode {
 
 /// Controls a device's macro effect.
 #[derive(Debug, Clone)]
-pub struct MacroEffect<'a>(pub(crate) CapabilityBase<'a>);
+pub struct MacroEffect(pub(crate) CapabilityBase);
 
-impl<'a> MacroEffect<'a> {
+impl MacroEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.led.macromode";
     pub(crate) const GET_METHOD: &'static str = "getMacroEffect";
     const SET_METHOD: &'static str = "setMacroEffect";

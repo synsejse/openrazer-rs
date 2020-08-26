@@ -4,9 +4,9 @@ use dbus_message_parser::Value;
 
 /// Controls a device's Macro Mode.
 #[derive(Debug, Clone)]
-pub struct MacroMode<'a>(pub(crate) CapabilityBase<'a>);
+pub struct MacroMode(pub(crate) CapabilityBase);
 
-impl<'a> MacroMode<'a> {
+impl MacroMode {
     pub(crate) const INTERFACE: &'static str = "razer.device.led.macromode";
     pub(crate) const GET_METHOD: &'static str = "getMacroMode";
     const SET_METHOD: &'static str = "setMacroMode";

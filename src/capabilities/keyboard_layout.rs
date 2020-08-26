@@ -4,9 +4,9 @@ use dbus_message_parser::Value;
 
 /// Gets a device's keyboard layout.
 #[derive(Debug, Clone)]
-pub struct KeyboardLayout<'a>(pub(crate) CapabilityBase<'a>);
+pub struct KeyboardLayout(pub(crate) CapabilityBase);
 
-impl KeyboardLayout<'_> {
+impl KeyboardLayout {
     pub(crate) const INTERFACE: &'static str = "razer.device.misc";
     pub(crate) const METHOD: &'static str = "getKeyboardLayout";
 

@@ -38,12 +38,12 @@ impl Device {
         self.get_generic_device().available
     }
 
-    fn capability_base(&self) -> CapabilityBase<'_> {
+    fn capability_base(&self) -> CapabilityBase {
         self.get_generic_device().capability_base()
     }
 
     /// Controls the breath effect.
-    pub fn breath_effect(&self) -> Option<BreathEffect<'_>> {
+    pub fn breath_effect(&self) -> Option<BreathEffect> {
         let available = self.capabilities().breath_effect;
         if available.single || available.dual || available.triple || available.random {
             Some(BreathEffect {
@@ -56,7 +56,7 @@ impl Device {
     }
 
     /// Controls the device's brightness.
-    pub fn brightness(&self) -> Option<Brightness<'_>> {
+    pub fn brightness(&self) -> Option<Brightness> {
         if self.capabilities().brightness {
             Some(Brightness(self.capability_base()))
         } else {
@@ -65,7 +65,7 @@ impl Device {
     }
 
     /// Controls the device's Game Mode.
-    pub fn game_mode(&self) -> Option<GameMode<'_>> {
+    pub fn game_mode(&self) -> Option<GameMode> {
         if self.capabilities().game_mode {
             Some(GameMode(self.capability_base()))
         } else {
@@ -74,7 +74,7 @@ impl Device {
     }
 
     /// Gets the device's keyboard layout.
-    pub fn keyboard_layout(&self) -> Option<KeyboardLayout<'_>> {
+    pub fn keyboard_layout(&self) -> Option<KeyboardLayout> {
         if self.capabilities().keyboard_layout {
             Some(KeyboardLayout(self.capability_base()))
         } else {
@@ -83,7 +83,7 @@ impl Device {
     }
 
     /// Controls the device's macro effect.
-    pub fn macro_effect(&self) -> Option<MacroEffect<'_>> {
+    pub fn macro_effect(&self) -> Option<MacroEffect> {
         if self.capabilities().macro_effect {
             Some(MacroEffect(self.capability_base()))
         } else {
@@ -92,7 +92,7 @@ impl Device {
     }
 
     /// Controls the device's Macro Mode.
-    pub fn macro_mode(&self) -> Option<MacroMode<'_>> {
+    pub fn macro_mode(&self) -> Option<MacroMode> {
         if self.capabilities().macro_mode {
             Some(MacroMode(self.capability_base()))
         } else {
@@ -101,7 +101,7 @@ impl Device {
     }
 
     /// Disables any lighting effect.
-    pub fn no_effect(&self) -> Option<NoEffect<'_>> {
+    pub fn no_effect(&self) -> Option<NoEffect> {
         if self.capabilities().no_effect {
             Some(NoEffect(self.capability_base()))
         } else {
@@ -110,7 +110,7 @@ impl Device {
     }
 
     /// Controls the reactive effect.
-    pub fn reactive_effect(&self) -> Option<ReactiveEffect<'_>> {
+    pub fn reactive_effect(&self) -> Option<ReactiveEffect> {
         if self.capabilities().reactive_effect {
             Some(ReactiveEffect(self.capability_base()))
         } else {
@@ -119,7 +119,7 @@ impl Device {
     }
 
     /// Controls the ripple effect.
-    pub fn ripple_effect(&self) -> Option<RippleEffect<'_>> {
+    pub fn ripple_effect(&self) -> Option<RippleEffect> {
         let available = self.capabilities().ripple_effect;
         if available.single || available.random {
             Some(RippleEffect {
@@ -132,7 +132,7 @@ impl Device {
     }
 
     /// Sets the spectrum effect.
-    pub fn spectrum_effect(&self) -> Option<SpectrumEffect<'_>> {
+    pub fn spectrum_effect(&self) -> Option<SpectrumEffect> {
         if self.capabilities().spectrum_effect {
             Some(SpectrumEffect(self.capability_base()))
         } else {
@@ -141,7 +141,7 @@ impl Device {
     }
 
     /// Sets the starlight effect.
-    pub fn starlight_effect(&self) -> Option<StarlightEffect<'_>> {
+    pub fn starlight_effect(&self) -> Option<StarlightEffect> {
         let available = self.capabilities().starlight_effect;
 
         if available.single || available.random || available.dual {
@@ -155,7 +155,7 @@ impl Device {
     }
 
     /// Controls the static effect.
-    pub fn static_effect(&self) -> Option<StaticEffect<'_>> {
+    pub fn static_effect(&self) -> Option<StaticEffect> {
         if self.capabilities().static_effect {
             Some(StaticEffect(self.capability_base()))
         } else {
@@ -164,7 +164,7 @@ impl Device {
     }
 
     /// Controls the wave effect.
-    pub fn wave_effect(&self) -> Option<WaveEffect<'_>> {
+    pub fn wave_effect(&self) -> Option<WaveEffect> {
         if self.capabilities().wave_effect {
             Some(WaveEffect(self.capability_base()))
         } else {

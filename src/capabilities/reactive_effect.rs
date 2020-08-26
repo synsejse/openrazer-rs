@@ -6,7 +6,7 @@ use dbus_message_parser::Value;
 
 /// Controls the reactive effect.
 #[derive(Debug, Clone)]
-pub struct ReactiveEffect<'a>(pub(crate) CapabilityBase<'a>);
+pub struct ReactiveEffect(pub(crate) CapabilityBase);
 
 /// The effect's speed.
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Hash)]
@@ -21,7 +21,7 @@ pub enum Speed {
     VerySlow = 4,
 }
 
-impl ReactiveEffect<'_> {
+impl ReactiveEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD: &'static str = "setReactive";
 

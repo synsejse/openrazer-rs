@@ -4,9 +4,9 @@ use dbus_message_parser::Value;
 
 /// Controls a device's Game Mode.
 #[derive(Debug, Clone)]
-pub struct GameMode<'a>(pub(crate) CapabilityBase<'a>);
+pub struct GameMode(pub(crate) CapabilityBase);
 
-impl<'a> GameMode<'a> {
+impl GameMode {
     pub(crate) const INTERFACE: &'static str = "razer.device.led.gamemode";
     pub(crate) const GET_METHOD: &'static str = "getGameMode";
     const SET_METHOD: &'static str = "setGameMode";

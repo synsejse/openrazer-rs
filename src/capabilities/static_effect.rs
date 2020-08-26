@@ -4,9 +4,9 @@ use dbus_message_parser::Value;
 
 /// Controls the static effect.
 #[derive(Debug, Clone)]
-pub struct StaticEffect<'a>(pub(crate) CapabilityBase<'a>);
+pub struct StaticEffect(pub(crate) CapabilityBase);
 
-impl StaticEffect<'_> {
+impl StaticEffect {
     pub(crate) const INTERFACE: &'static str = "razer.device.lighting.chroma";
     pub(crate) const METHOD: &'static str = "setStatic";
 
