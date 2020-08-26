@@ -16,7 +16,7 @@ pub enum Mode {
 #[derive(Debug, Clone)]
 pub struct RippleEffect {
     pub(crate) base: CapabilityBase,
-    pub(crate) available: RippleEffectAvailability,
+    pub(crate) availability: RippleEffectAvailability,
 }
 
 impl RippleEffect {
@@ -27,7 +27,7 @@ impl RippleEffect {
     /// Sets the ripple effect.
     pub async fn set(&self, mode: Mode, refresh_rate: f64) -> Result<(), Error> {
         match mode {
-            Mode::Single((red, green, blue)) if self.available.single => {
+            Mode::Single((red, green, blue)) if self.availability.single => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -41,7 +41,7 @@ impl RippleEffect {
                     )
                     .await
             }
-            Mode::Random if self.available.random => {
+            Mode::Random if self.availability.random => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,

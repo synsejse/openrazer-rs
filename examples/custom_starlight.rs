@@ -104,7 +104,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
     manager.set_sync_effect(false).await?;
 
     for device in devices {
-        if device.capabilities().custom_effect == Default::default() {
+        if !device.capabilities().custom_effect.is_available() {
             println!(
                 "Skipping device {} ({})",
                 device.name().await?,

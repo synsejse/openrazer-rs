@@ -16,7 +16,7 @@ pub enum Mode {
 #[derive(Debug, Clone)]
 pub struct BreathEffect {
     pub(crate) base: CapabilityBase,
-    pub(crate) available: BreathEffectAvailability,
+    pub(crate) availability: BreathEffectAvailability,
 }
 
 impl BreathEffect {
@@ -29,7 +29,7 @@ impl BreathEffect {
     /// Sets the breath effect.
     pub async fn set(&self, mode: Mode) -> Result<(), Error> {
         match mode {
-            Mode::Single((red, green, blue)) if self.available.single => {
+            Mode::Single((red, green, blue)) if self.availability.single => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -38,7 +38,7 @@ impl BreathEffect {
                     )
                     .await
             }
-            Mode::Dual(first, second) if self.available.dual => {
+            Mode::Dual(first, second) if self.availability.dual => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -54,7 +54,7 @@ impl BreathEffect {
                     )
                     .await
             }
-            Mode::Triple(first, second, third) if self.available.triple => {
+            Mode::Triple(first, second, third) if self.availability.triple => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -73,7 +73,7 @@ impl BreathEffect {
                     )
                     .await
             }
-            Mode::Random if self.available.random => {
+            Mode::Random if self.availability.random => {
                 self.base
                     .call_set_method(Self::INTERFACE, Self::METHOD_RANDOM, Vec::new())
                     .await

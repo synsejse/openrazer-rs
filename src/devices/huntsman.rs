@@ -16,7 +16,7 @@ impl Huntsman {
     pub fn breath_effect(&self) -> BreathEffect {
         BreathEffect {
             base: self.0.capability_base(),
-            available: self.0.available.breath_effect,
+            availability: self.0.available.breath_effect,
         }
     }
 
@@ -28,7 +28,7 @@ impl Huntsman {
     pub fn custom_effect(&self) -> CustomEffect {
         CustomEffect {
             base: self.0.capability_base(),
-            available: self.0.available.custom_effect,
+            availability: self.0.available.custom_effect,
         }
     }
 
@@ -71,7 +71,7 @@ impl Huntsman {
     pub fn ripple_effect(&self) -> RippleEffect {
         RippleEffect {
             base: self.0.capability_base(),
-            available: self.0.available.ripple_effect,
+            availability: self.0.available.ripple_effect,
         }
     }
 
@@ -84,7 +84,7 @@ impl Huntsman {
     pub fn starlight_effect(&self) -> StarlightEffect {
         StarlightEffect {
             base: self.0.capability_base(),
-            available: self.0.available.starlight_effect,
+            availability: self.0.available.starlight_effect,
         }
     }
 

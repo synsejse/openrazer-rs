@@ -44,11 +44,11 @@ impl Device {
 
     /// Controls the breath effect.
     pub fn breath_effect(&self) -> Option<BreathEffect> {
-        let available = self.capabilities().breath_effect;
-        if available.single || available.dual || available.triple || available.random {
+        let availability = self.capabilities().breath_effect;
+        if availability.is_available() {
             Some(BreathEffect {
                 base: self.capability_base(),
-                available,
+                availability,
             })
         } else {
             None
@@ -57,11 +57,11 @@ impl Device {
 
     /// Controls the custom effect.
     pub fn custom_effect(&self) -> Option<CustomEffect> {
-        let available = self.capabilities().custom_effect;
-        if available != Default::default() {
+        let availability = self.capabilities().custom_effect;
+        if availability.is_available() {
             Some(CustomEffect {
                 base: self.capability_base(),
-                available,
+                availability,
             })
         } else {
             None
@@ -142,11 +142,11 @@ impl Device {
 
     /// Controls the ripple effect.
     pub fn ripple_effect(&self) -> Option<RippleEffect> {
-        let available = self.capabilities().ripple_effect;
-        if available.single || available.random {
+        let availability = self.capabilities().ripple_effect;
+        if availability.is_available() {
             Some(RippleEffect {
                 base: self.capability_base(),
-                available,
+                availability,
             })
         } else {
             None
@@ -164,12 +164,12 @@ impl Device {
 
     /// Sets the starlight effect.
     pub fn starlight_effect(&self) -> Option<StarlightEffect> {
-        let available = self.capabilities().starlight_effect;
+        let availability = self.capabilities().starlight_effect;
 
-        if available.single || available.random || available.dual {
+        if availability.is_available() {
             Some(StarlightEffect {
                 base: self.capability_base(),
-                available,
+                availability,
             })
         } else {
             None

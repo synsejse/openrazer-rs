@@ -8,7 +8,7 @@ use dbus_message_parser::Value;
 #[derive(Debug, Clone)]
 pub struct StarlightEffect {
     pub(crate) base: CapabilityBase,
-    pub(crate) available: StarlightEffectAvailability,
+    pub(crate) availability: StarlightEffectAvailability,
 }
 
 /// The effect's speed.
@@ -62,7 +62,7 @@ impl StarlightEffect {
     /// Sets the breath effect.
     pub async fn set(&self, mode: Mode, speed: Speed) -> Result<(), Error> {
         match mode {
-            Mode::Single((red, green, blue)) if self.available.single => {
+            Mode::Single((red, green, blue)) if self.availability.single => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -76,7 +76,7 @@ impl StarlightEffect {
                     )
                     .await
             }
-            Mode::Dual(first, second) if self.available.dual => {
+            Mode::Dual(first, second) if self.availability.dual => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,
@@ -93,7 +93,7 @@ impl StarlightEffect {
                     )
                     .await
             }
-            Mode::Random if self.available.random => {
+            Mode::Random if self.availability.random => {
                 self.base
                     .call_set_method(
                         Self::INTERFACE,

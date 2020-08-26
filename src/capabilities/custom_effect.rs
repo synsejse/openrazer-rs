@@ -6,7 +6,7 @@ use std::ops::{Index, IndexMut};
 #[derive(Debug, Clone)]
 pub struct CustomEffect {
     pub(crate) base: CapabilityBase,
-    pub(crate) available: CustomEffectAvailability,
+    pub(crate) availability: CustomEffectAvailability,
 }
 
 #[derive(Debug, Clone)]
@@ -22,7 +22,7 @@ impl CustomEffect {
     pub(crate) const SET_CUSTOM_METHOD: &'static str = "setCustom";
 
     pub(crate) async fn set_row(&self, bytes: Vec<Value>) -> Result<(), Error> {
-        if !self.available.set_key_row {
+        if !self.availability.set_key_row {
             return Err(Error::UnsupportedCapability);
         }
 
@@ -36,7 +36,7 @@ impl CustomEffect {
     }
 
     pub async fn set(&self) -> Result<(), Error> {
-        if !self.available.set_effect {
+        if !self.availability.set_effect {
             return Err(Error::UnsupportedCapability);
         }
 

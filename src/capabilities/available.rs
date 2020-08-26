@@ -44,3 +44,27 @@ pub struct StarlightEffectAvailability {
     pub dual: bool,
     pub random: bool,
 }
+
+impl BreathEffectAvailability {
+    pub fn is_available(self) -> bool {
+        self != Default::default()
+    }
+}
+
+impl CustomEffectAvailability {
+    pub fn is_available(self) -> bool {
+        self != Default::default()
+    }
+}
+
+impl RippleEffectAvailability {
+    pub fn is_available(self) -> bool {
+        self != Default::default()
+    }
+}
+
+impl StarlightEffectAvailability {
+    pub fn is_available(self) -> bool {
+        self != Default::default()
+    }
+}
