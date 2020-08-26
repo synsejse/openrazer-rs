@@ -1,9 +1,9 @@
 use super::Huntsman;
 use crate::{
     capabilities::{
-        AvailableCapabilities, BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout,
-        MacroEffect, MacroMode, NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect,
-        StarlightEffect, StaticEffect, WaveEffect,
+        AvailableCapabilities, BreathEffect, Brightness, CapabilityBase, CustomEffect, GameMode,
+        KeyboardLayout, MacroEffect, MacroMode, MatrixDimensions, NoEffect, ReactiveEffect,
+        RippleEffect, SpectrumEffect, StarlightEffect, StaticEffect, WaveEffect,
     },
     devices::Device,
     Error,
@@ -199,6 +199,12 @@ async fn get_available_capabilities(
                     capabilities.breath_effect.random = true
                 }
                 (Brightness::INTERFACE, Brightness::GET_METHOD) => capabilities.brightness = true,
+                (CustomEffect::INTERFACE, CustomEffect::SET_CUSTOM_METHOD) => {
+                    capabilities.custom_effect.set_effect = true
+                }
+                (CustomEffect::INTERFACE, CustomEffect::SET_ROW_METHOD) => {
+                    capabilities.custom_effect.set_key_row = true
+                }
                 (GameMode::INTERFACE, GameMode::GET_METHOD) => capabilities.game_mode = true,
                 (KeyboardLayout::INTERFACE, KeyboardLayout::METHOD) => {
                     capabilities.keyboard_layout = true
@@ -207,6 +213,9 @@ async fn get_available_capabilities(
                     capabilities.macro_effect = true
                 }
                 (MacroMode::INTERFACE, MacroMode::GET_METHOD) => capabilities.macro_mode = true,
+                (MatrixDimensions::INTERFACE, MatrixDimensions::GET_METHOD) => {
+                    capabilities.matrix_dimensions = true
+                }
                 (NoEffect::INTERFACE, NoEffect::METHOD) => capabilities.no_effect = true,
                 (ReactiveEffect::INTERFACE, ReactiveEffect::METHOD) => {
                     capabilities.reactive_effect = true

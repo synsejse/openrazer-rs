@@ -1,7 +1,8 @@
 use super::{GenericDevice, GenericMethods};
 use crate::capabilities::{
-    BreathEffect, Brightness, GameMode, KeyboardLayout, MacroEffect, MacroMode, NoEffect,
-    ReactiveEffect, RippleEffect, SpectrumEffect, StarlightEffect, StaticEffect, WaveEffect,
+    BreathEffect, Brightness, CustomEffect, GameMode, KeyboardLayout, MacroEffect, MacroMode,
+    MatrixDimensions, NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect, StarlightEffect,
+    StaticEffect, WaveEffect,
 };
 
 /// A Razer Huntsman keyboard.
@@ -24,6 +25,13 @@ impl Huntsman {
         Brightness(self.0.capability_base())
     }
 
+    pub fn custom_effect(&self) -> CustomEffect {
+        CustomEffect {
+            base: self.0.capability_base(),
+            available: self.0.available.custom_effect,
+        }
+    }
+
     /// Controls Game Mode.
     pub fn game_mode(&self) -> GameMode {
         GameMode(self.0.capability_base())
@@ -42,6 +50,11 @@ impl Huntsman {
     /// Controls Macro Mode.
     pub fn macro_mode(&self) -> MacroMode {
         MacroMode(self.0.capability_base())
+    }
+
+    /// Gets the keyboard's matrix dimensions.
+    pub fn matrix_dimensions(&self) -> MatrixDimensions {
+        MatrixDimensions(self.0.capability_base())
     }
 
     /// Disables any lighting effect.

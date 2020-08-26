@@ -10,10 +10,12 @@ pub use available::AvailableCapabilities;
 
 pub mod breath_effect;
 mod brightness;
+pub mod custom_effect;
 mod game_mode;
 mod keyboard_layout;
 pub mod macro_effect;
 mod macro_mode;
+pub mod matrix_dimensions;
 mod no_effect;
 pub mod reactive_effect;
 pub mod ripple_effect;
@@ -24,10 +26,12 @@ pub mod wave_effect;
 
 pub use breath_effect::BreathEffect;
 pub use brightness::Brightness;
+pub use custom_effect::CustomEffect;
 pub use game_mode::GameMode;
 pub use keyboard_layout::KeyboardLayout;
 pub use macro_effect::MacroEffect;
 pub use macro_mode::MacroMode;
+pub use matrix_dimensions::MatrixDimensions;
 pub use no_effect::NoEffect;
 pub use reactive_effect::ReactiveEffect;
 pub use ripple_effect::RippleEffect;

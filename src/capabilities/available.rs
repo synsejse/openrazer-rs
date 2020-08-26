@@ -3,10 +3,12 @@
 pub struct AvailableCapabilities {
     pub breath_effect: BreathEffectAvailability,
     pub brightness: bool,
+    pub custom_effect: CustomEffectAvailability,
     pub game_mode: bool,
     pub keyboard_layout: bool,
     pub macro_effect: bool,
     pub macro_mode: bool,
+    pub matrix_dimensions: bool,
     pub no_effect: bool,
     pub reactive_effect: bool,
     pub ripple_effect: RippleEffectAvailability,
@@ -22,6 +24,12 @@ pub struct BreathEffectAvailability {
     pub dual: bool,
     pub triple: bool,
     pub random: bool,
+}
+
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Hash, Default)]
+pub struct CustomEffectAvailability {
+    pub set_key_row: bool,
+    pub set_effect: bool,
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy, Hash, Default)]

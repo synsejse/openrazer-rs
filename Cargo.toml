@@ -15,6 +15,7 @@ futures = "0.3"
 
 [dev-dependencies]
 rand = "0.7"
+palette ="0.5"
 
 [[example]]
 name = "basic_effect"
@@ -23,6 +24,10 @@ required-features = ["tokio/macros"]
 [[example]]
 name = "advanced_effect"
 required-features = ["tokio/macros"]
+
+[[example]]
+name = "custom_starlight"
+required-features = ["tokio/macros", "tokio/time", "tokio/sync"]
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

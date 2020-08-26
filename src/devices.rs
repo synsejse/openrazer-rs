@@ -7,9 +7,9 @@ pub use generic::{GenericDevice, GenericMethods};
 pub use huntsman::Huntsman;
 
 use crate::capabilities::{
-    AvailableCapabilities, BreathEffect, Brightness, CapabilityBase, GameMode, KeyboardLayout,
-    MacroEffect, MacroMode, NoEffect, ReactiveEffect, RippleEffect, SpectrumEffect,
-    StarlightEffect, StaticEffect, WaveEffect,
+    AvailableCapabilities, BreathEffect, Brightness, CapabilityBase, CustomEffect, GameMode,
+    KeyboardLayout, MacroEffect, MacroMode, MatrixDimensions, NoEffect, ReactiveEffect,
+    RippleEffect, SpectrumEffect, StarlightEffect, StaticEffect, WaveEffect,
 };
 
 /// A Razer device, possibly a specific one.
@@ -47,6 +47,19 @@ impl Device {
         let available = self.capabilities().breath_effect;
         if available.single || available.dual || available.triple || available.random {
             Some(BreathEffect {
+                base: self.capability_base(),
+                available,
+            })
+        } else {
+            None
+        }
+    }
+
+    /// Controls the custom effect.
+    pub fn custom_effect(&self) -> Option<CustomEffect> {
+        let available = self.capabilities().custom_effect;
+        if available != Default::default() {
+            Some(CustomEffect {
                 base: self.capability_base(),
                 available,
             })
@@ -95,6 +108,15 @@ impl Device {
     pub fn macro_mode(&self) -> Option<MacroMode> {
         if self.capabilities().macro_mode {
             Some(MacroMode(self.capability_base()))
+        } else {
+            None
+        }
+    }
+
+    /// Gets the device's matrix dimensions.
+    pub fn matrix_dimensions(&self) -> Option<MatrixDimensions> {
+        if self.capabilities().matrix_dimensions {
+            Some(MatrixDimensions(self.capability_base()))
         } else {
             None
         }
