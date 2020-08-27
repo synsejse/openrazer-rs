@@ -33,16 +33,16 @@ impl Distribution<Effect> for Standard {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
     let manager = DeviceManager::new().await?;
-    let devices = manager.get_connected_devices().await?;
+    let devices = manager.devices().await?;
 
     println!("Found {} Razer devices", devices.len());
     println!();
 
-    manager.set_sync_effect(false).await?;
+    manager.sync_effects().disable().await?;
 
     for device in devices {
         let capabilities = device.capabilities();
-        if !(capabilities.breath_effect != Default::default()
+        if !(capabilities.breath_effect.is_available()
             || capabilities.reactive_effect
             || capabilities.spectrum_effect
             || capabilities.wave_effect)

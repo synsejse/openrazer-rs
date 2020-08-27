@@ -1,11 +1,16 @@
-use dbus_async::DBus;
-use dbus_message_parser::{Message, Value};
-use std::{collections::HashMap, io};
-
 use crate::{
     devices::{Device, GenericDevice},
     Error,
 };
+use dbus_async::DBus;
+use dbus_message_parser::{Message, Value};
+use std::{collections::HashMap, io};
+
+mod sync_effects;
+mod turn_off_on_screensaver;
+
+pub use sync_effects::SyncEffects;
+pub use turn_off_on_screensaver::TurnOffOnScreensaver;
 
 const PATH: &str = "/org/razer";
 const DAEMON_INTERFACE: &str = "razer.daemon";
@@ -34,7 +39,7 @@ impl DeviceManager {
     }
 
     /// Fetches the daemon's version.
-    pub async fn get_daemon_version(&self) -> Result<String, Error> {
+    pub async fn daemon_version(&self) -> Result<String, Error> {
         let (_, body) = self.dbus.call(daemon_message("version")).await?.split();
 
         match body.into_iter().next() {
@@ -50,7 +55,7 @@ impl DeviceManager {
     }
 
     /// Fetches supported devices.
-    pub async fn get_supported_devices(&self) -> Result<HashMap<String, [u16; 2]>, Error> {
+    pub async fn supported_devices(&self) -> Result<HashMap<String, [u16; 2]>, Error> {
         let response = self.dbus.call(devices_message("supportedDevices")).await?;
 
         match response.get_body() {
@@ -60,7 +65,7 @@ impl DeviceManager {
     }
 
     /// Fetches connected devices.
-    pub async fn get_connected_devices(&self) -> Result<Vec<Device>, Error> {
+    pub async fn devices(&self) -> Result<Vec<Device>, Error> {
         let (_, body) = self.dbus.call(devices_message("getDevices")).await?.split();
 
         let serials = match body.into_iter().next() {
@@ -83,44 +88,17 @@ impl DeviceManager {
         Ok(devices)
     }
 
-    /// Fetches information if devices' lighting is disabled on lockscreen.
-    pub async fn get_turn_off_on_screensaver(&self) -> Result<bool, Error> {
-        let response = self
-            .dbus
-            .call(devices_message("getOffOnScreensaver"))
-            .await?;
-
-        match response.get_body() {
-            [Value::Boolean(is_enabled)] => Ok(*is_enabled),
-            _ => Err(Error::InvalidResponse),
+    /// Controls whether devices' lighting is disabled on lockscreen.
+    pub fn turn_off_on_screensaver(&self) -> TurnOffOnScreensaver {
+        TurnOffOnScreensaver {
+            dbus: self.dbus.clone(),
         }
     }
 
-    /// Sets whether devices' lighting is disabled on lockscreen.
-    pub async fn set_turn_off_on_screensaver(&self, is_enabled: bool) -> Result<(), Error> {
-        let mut message = devices_message("enableTurnOffOnScreensaver");
-        message.add_value(Value::Boolean(is_enabled));
-
-        self.dbus.call(message).await?;
-        Ok(())
-    }
-
-    /// Fetches information if applied effects are synchronized across all devices.
-    pub async fn get_sync_effect(&self) -> Result<bool, Error> {
-        let response = self.dbus.call(devices_message("getSyncEffects")).await?;
-
-        match response.get_body() {
-            [Value::Boolean(should_sync)] => Ok(*should_sync),
-            _ => Err(Error::InvalidResponse),
+    /// Conrols whether applied effects are synchronized across all devices.
+    pub fn sync_effects(&self) -> SyncEffects {
+        SyncEffects {
+            dbus: self.dbus.clone(),
         }
-    }
-
-    /// Sets whether applied effects are synchronized across all devices.
-    pub async fn set_sync_effect(&self, should_sync: bool) -> Result<(), Error> {
-        let mut message = devices_message("syncEffects");
-        message.add_value(Value::Boolean(should_sync));
-
-        self.dbus.call(message).await?;
-        Ok(())
     }
 }

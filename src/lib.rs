@@ -1,5 +1,5 @@
 pub mod capabilities;
-mod device_manager;
+pub mod device_manager;
 pub mod devices;
 mod error;
 

@@ -96,12 +96,12 @@ async fn starlight_effect(device: Device) -> Result<(), openrazer::Error> {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
     let manager = DeviceManager::new().await?;
-    let devices = manager.get_connected_devices().await?;
+    let devices = manager.devices().await?;
 
     println!("Found {} Razer devices", devices.len());
     println!();
 
-    manager.set_sync_effect(false).await?;
+    manager.sync_effects().disable().await?;
 
     for device in devices {
         if !device.capabilities().custom_effect.is_available() {
