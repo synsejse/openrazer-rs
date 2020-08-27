@@ -1,9 +1,14 @@
 [package]
 name = "openrazer"
 version = "0.1.0"
+description = "Asynchronous bindings to the OpenRazer daemon."
+repository = "https://gitlab.com/SnejUgal/openrazer-rs"
+readme = "./Readme.md"
+license = "MIT"
 authors = ["SnejUgal <contact@snejugal.ru>"]
 edition = "2018"
-license = "MIT"
+keywords = ["razer", "openrazer"]
+categories = ["api-bindings", "asynchronous"]
 
 [dependencies]
 dbus-async = "1"
