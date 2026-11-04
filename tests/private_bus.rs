@@ -338,3 +338,19 @@ async fn hotplug_and_owner_events_are_observable() {
     let (_, old, new): (String, String, String) = event.body().deserialize().unwrap();
     assert!(!old.is_empty() && new.is_empty());
 }
+
+#[tokio::test]
+async fn daemon_activation_is_an_explicit_reversible_opt_in() {
+    let bus = Bus::start();
+    let forbade_auto_start = Arc::new(AtomicBool::new(true));
+    let _server = bus
+        .serve_root(Root {
+            forbade_auto_start: forbade_auto_start.clone(),
+        })
+        .await;
+    let client = bus.client().await.with_auto_start(true);
+    client.serials().await.unwrap();
+    assert!(!forbade_auto_start.load(Ordering::SeqCst));
+    client.with_auto_start(false).serials().await.unwrap();
+    assert!(forbade_auto_start.load(Ordering::SeqCst));
+}

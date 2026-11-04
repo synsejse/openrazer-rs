@@ -37,11 +37,13 @@ For example, an explicitly requested DPI setter is
 `device.call(&device_dpi::SET_DPI, &(x_u16, y_u16)).await?`.
 Calling a setter acknowledges the daemon reply only; hardware readback remains
 an application responsibility. Constructors, discovery and event subscriptions
-never invoke hardware setters. Calls set D-Bus `NO_AUTO_START`.
+never invoke hardware setters. Calls set D-Bus `NO_AUTO_START` by default.
+Applications that rely on D-Bus activation can opt in with
+`Client::with_auto_start(true)`; calling this builder alone starts nothing.
 
 ## razerr-rs API map
 
-Add `openrazer = { git = "https://github.com/synsejse/openrazer-rs", rev = "<reviewed commit>" }`
+Add `openrazer = { version = "=0.2.0", git = "https://github.com/synsejse/openrazer-rs", rev = "<reviewed commit>" }`
 to workspace dependencies and to the adapter crate. Add that exact repository to
 `deny.toml`'s `[sources].allow-git`; `unknown-git = "deny"` currently rejects it.
 The adapter's package name `razerr-openrazer` need not change.

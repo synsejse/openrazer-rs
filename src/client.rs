@@ -13,11 +13,12 @@ use crate::{DESTINATION, Endpoint, Error, Introspection, ROOT};
 const DEFAULT_TIMEOUT: Duration = Duration::from_secs(10);
 const SIGNAL_QUEUE_CAPACITY: Option<NonZeroUsize> = NonZeroUsize::new(16);
 
-/// A cloneable connection; never starts the daemon or retries setters.
+/// A cloneable connection; daemon activation is opt-in and setters are never retried.
 #[derive(Debug, Clone)]
 pub struct Client {
     connection: Connection,
     timeout: Duration,
+    auto_start: bool,
 }
 
 impl Client {
@@ -33,11 +34,19 @@ impl Client {
         Self {
             connection,
             timeout: DEFAULT_TIMEOUT,
+            auto_start: false,
         }
     }
 
     pub fn with_timeout(mut self, timeout: Duration) -> Self {
         self.timeout = timeout;
+        self
+    }
+
+    /// Allow D-Bus to activate the daemon when a method is called.
+    /// Disabled by default. This does not start a daemon by itself.
+    pub fn with_auto_start(mut self, enabled: bool) -> Self {
+        self.auto_start = enabled;
         self
     }
 
@@ -67,7 +76,15 @@ impl Client {
                 .build()
                 .await?;
             proxy
-                .call_with_flags(method, MethodFlags::NO_AUTO_START, body)
+                .call_with_flags(
+                    method,
+                    if self.auto_start {
+                        MethodFlags::empty()
+                    } else {
+                        MethodFlags::NO_AUTO_START
+                    },
+                    body,
+                )
                 .await?
                 .ok_or(zbus::Error::Failure("missing reply".into()))
         })
