@@ -14,10 +14,12 @@ categories = ["api-bindings", "asynchronous"]
 [dependencies]
 serde = "1.0.229"
 thiserror = "2.0.21"
+zbus_xml = "6.0.0"
 tokio = { version = "1.54.1", features = ["time"] }
 zbus = { version = "=6.1.0", default-features = false, features = ["tokio", "proxy"] }
 
 [dev-dependencies]
+futures-util = "0.3.34"
 tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread"] }
 zbus = { version = "=6.1.0", default-features = false, features = ["tokio", "service"] }
 

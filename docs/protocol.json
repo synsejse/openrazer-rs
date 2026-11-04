@@ -1,0 +1,2039 @@
+{
+  "revision": "477f4d6d3ab7e9deb6310d5bd3742560c5cbe80d",
+  "methods": [
+    {
+      "interface": "razer.daemon",
+      "name": "stop",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:132"
+      ]
+    },
+    {
+      "interface": "razer.daemon",
+      "name": "version",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:131"
+      ]
+    },
+    {
+      "interface": "razer.device.dpi",
+      "name": "availableDPI",
+      "input": "",
+      "output": "ai",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:292"
+      ]
+    },
+    {
+      "interface": "razer.device.dpi",
+      "name": "getDPI",
+      "input": "",
+      "output": "ai",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:207",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahex.py:60"
+      ]
+    },
+    {
+      "interface": "razer.device.dpi",
+      "name": "getDPIStages",
+      "input": "",
+      "output": "(ya(qq))",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:258"
+      ]
+    },
+    {
+      "interface": "razer.device.dpi",
+      "name": "maxDPI",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:285"
+      ]
+    },
+    {
+      "interface": "razer.device.dpi",
+      "name": "setDPI",
+      "input": "qq",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:156",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahex.py:11"
+      ]
+    },
+    {
+      "interface": "razer.device.dpi",
+      "name": "setDPIStages",
+      "input": "ya(qq)",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:237"
+      ]
+    },
+    {
+      "interface": "razer.device.led.gamemode",
+      "name": "getGameMode",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:54"
+      ]
+    },
+    {
+      "interface": "razer.device.led.gamemode",
+      "name": "setGameMode",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:70"
+      ]
+    },
+    {
+      "interface": "razer.device.led.macromode",
+      "name": "getMacroEffect",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:194"
+      ]
+    },
+    {
+      "interface": "razer.device.led.macromode",
+      "name": "getMacroMode",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:124"
+      ]
+    },
+    {
+      "interface": "razer.device.led.macromode",
+      "name": "setMacroEffect",
+      "input": "y",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:210"
+      ]
+    },
+    {
+      "interface": "razer.device.led.macromode",
+      "name": "setMacroMode",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:140"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "getBacklightBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:7"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "getBacklightEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:174"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "getBacklightEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:175"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "getBacklightEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:176"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "getBacklightWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:177"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:801"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:749"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:770"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:17"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:672"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightOn",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:691"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightReactive",
+      "input": "yyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:710"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:653"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:622"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.backlight",
+      "name": "setBacklightWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:596"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.brightness",
+      "name": "getBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:11"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.brightness",
+      "name": "setBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:24"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.bw2013",
+      "name": "setPulsate",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/bw2013.py:10"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.bw2013",
+      "name": "setStatic",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/bw2013.py:29"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.channel",
+      "name": "getChannelBrightness",
+      "input": "q",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/argb_controller.py:18"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.channel",
+      "name": "getChannelSize",
+      "input": "q",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/argb_controller.py:77"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.channel",
+      "name": "getNumChannels",
+      "input": "",
+      "output": "q",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/argb_controller.py:7"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.channel",
+      "name": "setChannelBrightness",
+      "input": "qd",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/argb_controller.py:55"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.channel",
+      "name": "setChannelSize",
+      "input": "qi",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/argb_controller.py:112"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "getChargingBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:7"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "getChargingEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:209"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "getChargingEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:210"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "getChargingEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:211"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "getChargingWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:212"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:194"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:142"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:163"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:19"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:123"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:104"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:73"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.charging",
+      "name": "setChargingWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:48"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "getEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:165"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "getEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:166"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "getEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:167"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "getWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:168"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "restoreLastEffect",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:160"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setBlinking",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:311"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:487"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:435"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:456"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setBreathTriple",
+      "input": "yyyyyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:527"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setCustom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:576"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setKeyRow",
+      "input": "ay",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:586"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:361"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setReactive",
+      "input": "yyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:396"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:342"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setStarlightDual",
+      "input": "yyyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:690"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setStarlightRandom",
+      "input": "y",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:649"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setStarlightSingle",
+      "input": "yyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:669"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:280"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:226"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.chroma",
+      "name": "setWheel",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:252"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.custom",
+      "name": "setRipple",
+      "input": "yyyd",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:605"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.custom",
+      "name": "setRippleRandomColour",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:632"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "getFastChargingBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:234"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "getFastChargingEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:216"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "getFastChargingEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:217"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "getFastChargingEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:218"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "getFastChargingWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:219"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:421"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:369"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:390"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:246"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:350"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:331"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:300"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fast_charging",
+      "name": "setFastChargingWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:275"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "getFullyChargedBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:461"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "getFullyChargedEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:223"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "getFullyChargedEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:224"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "getFullyChargedEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:225"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "getFullyChargedWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:226"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:648"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:596"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:617"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:473"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:577"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:558"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:527"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.fully_charged",
+      "name": "setFullyChargedWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/charging_pad_chroma.py:502"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.kraken",
+      "name": "setCustom",
+      "input": "ai",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/kraken.py:10"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "getLeftBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:59"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "getLeftEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:195"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "getLeftEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:196"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "getLeftEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:197"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "getLeftWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:198"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:288"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:236"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:257"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:72"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:178"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftReactive",
+      "input": "yyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:197"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:159"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:128"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.left",
+      "name": "setLeftWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:102"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "getLogoActive",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:44"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "getLogoBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:70"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "getLogoEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:181"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "getLogoEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:182"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "getLogoEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:183"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "getLogoWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:184"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoActive",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:54"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoBlinking",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:244"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:204"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoBreathMono",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:133"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:152"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:173"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:80"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:57"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoOn",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:76"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoReactive",
+      "input": "yyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:95"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:38"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:7"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.logo",
+      "name": "setLogoWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:7"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.power",
+      "name": "setChargeColour",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:132"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.power",
+      "name": "setChargeEffect",
+      "input": "y",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:112"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.profile_led",
+      "name": "getBlueLED",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:80"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.profile_led",
+      "name": "getGreenLED",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:45"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.profile_led",
+      "name": "getRedLED",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:10"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.profile_led",
+      "name": "setBlueLED",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:96"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.profile_led",
+      "name": "setGreenLED",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:61"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.profile_led",
+      "name": "setRedLED",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:26"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "getRightBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:328"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "getRightEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:202"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "getRightEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:203"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "getRightEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:204"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "getRightWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:205"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:556"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:504"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:525"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:340"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:446"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightReactive",
+      "input": "yyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:465"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:427"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:396"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.right",
+      "name": "setRightWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:370"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "getScrollBrightness",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:107"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "getScrollEffect",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:188"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "getScrollEffectColors",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:189"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "getScrollEffectSpeed",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:190"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "getScrollWaveDir",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:191"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollBlinking",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:509"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollBreathDual",
+      "input": "yyyyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:469"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollBreathMono",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:398"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollBreathRandom",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:417"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollBreathSingle",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:438"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollBrightness",
+      "input": "d",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/deathadder_chroma.py:117"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollNone",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:324"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollOn",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:342"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollReactive",
+      "input": "yyyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:360"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollSpectrum",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:306"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollStatic",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/nagahexv2.py:275"
+      ]
+    },
+    {
+      "interface": "razer.device.lighting.scroll",
+      "name": "setScrollWave",
+      "input": "i",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/lanceheadte.py:33"
+      ]
+    },
+    {
+      "interface": "razer.device.macro",
+      "name": "addMacro",
+      "input": "ss",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/macro.py:36"
+      ]
+    },
+    {
+      "interface": "razer.device.macro",
+      "name": "deleteMacro",
+      "input": "s",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/macro.py:23"
+      ]
+    },
+    {
+      "interface": "razer.device.macro",
+      "name": "getMacros",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/macro.py:10"
+      ]
+    },
+    {
+      "interface": "razer.device.macro",
+      "name": "getModeModifier",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:115"
+      ]
+    },
+    {
+      "interface": "razer.device.macro",
+      "name": "setModeModifier",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/keypad.py:128"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getDeviceImage",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:151"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getDeviceMode",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:150"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getDeviceName",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:73"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getDeviceType",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:109",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:121",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:133",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:145",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:157",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:169",
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:181"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getDriverVersion",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:30",
+        "daemon/openrazer_daemon/hardware/device_base.py:155"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getFirmware",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:57"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getHyperPollingLED",
+      "input": "",
+      "output": "y",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:350"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getHyperPollingMultiLEDModes",
+      "input": "",
+      "output": "ay",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:420"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getKeyboardLayout",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:89"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getMatrixDimensions",
+      "input": "",
+      "output": "ai",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:203"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getPollRate",
+      "input": "",
+      "output": "i",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:324"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getRazerUrls",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:158"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getSerial",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:148"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getSupportedPollRates",
+      "input": "",
+      "output": "aq",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:337"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "getVidPid",
+      "input": "",
+      "output": "ai",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:154"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "hasDedicatedMacroKeys",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:156"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "hasMatrix",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/all.py:193"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "resumeDevice",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:153"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "setDeviceMode",
+      "input": "yy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:152"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "setHyperPollingLED",
+      "input": "y",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:369"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "setHyperPollingMultiLEDModes",
+      "input": "yyy",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:442"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "setHyperPollingPair",
+      "input": "s",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:388"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "setHyperPollingUnpair",
+      "input": "s",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:404"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "setPollRate",
+      "input": "q",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:302"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "suspendDevice",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/hardware/device_base.py:149"
+      ]
+    },
+    {
+      "interface": "razer.device.misc",
+      "name": "triggerReactive",
+      "input": "",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:380"
+      ]
+    },
+    {
+      "interface": "razer.device.misc.keyswitchoptimization",
+      "name": "getKeyswitchOptimization",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:159"
+      ]
+    },
+    {
+      "interface": "razer.device.misc.keyswitchoptimization",
+      "name": "setKeyswitchOptimization",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/chroma_keyboard.py:175"
+      ]
+    },
+    {
+      "interface": "razer.device.misc.mug",
+      "name": "isMugPresent",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/accessory.py:10"
+      ]
+    },
+    {
+      "interface": "razer.device.power",
+      "name": "getBattery",
+      "input": "",
+      "output": "d",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:9"
+      ]
+    },
+    {
+      "interface": "razer.device.power",
+      "name": "getIdleTime",
+      "input": "",
+      "output": "q",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:56"
+      ]
+    },
+    {
+      "interface": "razer.device.power",
+      "name": "getLowBatteryThreshold",
+      "input": "",
+      "output": "y",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:93"
+      ]
+    },
+    {
+      "interface": "razer.device.power",
+      "name": "isCharging",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:27"
+      ]
+    },
+    {
+      "interface": "razer.device.power",
+      "name": "setIdleTime",
+      "input": "q",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:40"
+      ]
+    },
+    {
+      "interface": "razer.device.power",
+      "name": "setLowBatteryThreshold",
+      "input": "y",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mamba.py:75"
+      ]
+    },
+    {
+      "interface": "razer.device.scroll",
+      "name": "getScrollAcceleration",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mouse_scroll_wheel.py:58"
+      ]
+    },
+    {
+      "interface": "razer.device.scroll",
+      "name": "getScrollMode",
+      "input": "",
+      "output": "y",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mouse_scroll_wheel.py:26"
+      ]
+    },
+    {
+      "interface": "razer.device.scroll",
+      "name": "getScrollSmartReel",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mouse_scroll_wheel.py:90"
+      ]
+    },
+    {
+      "interface": "razer.device.scroll",
+      "name": "setScrollAcceleration",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mouse_scroll_wheel.py:42"
+      ]
+    },
+    {
+      "interface": "razer.device.scroll",
+      "name": "setScrollMode",
+      "input": "y",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mouse_scroll_wheel.py:7"
+      ]
+    },
+    {
+      "interface": "razer.device.scroll",
+      "name": "setScrollSmartReel",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/dbus_services/dbus_methods/mouse_scroll_wheel.py:74"
+      ]
+    },
+    {
+      "interface": "razer.devices",
+      "name": "enableTurnOffOnScreensaver",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:127"
+      ]
+    },
+    {
+      "interface": "razer.devices",
+      "name": "getDevices",
+      "input": "",
+      "output": "as",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:125"
+      ]
+    },
+    {
+      "interface": "razer.devices",
+      "name": "getOffOnScreensaver",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:128"
+      ]
+    },
+    {
+      "interface": "razer.devices",
+      "name": "getSyncEffects",
+      "input": "",
+      "output": "b",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:130"
+      ]
+    },
+    {
+      "interface": "razer.devices",
+      "name": "supportedDevices",
+      "input": "",
+      "output": "s",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:126"
+      ]
+    },
+    {
+      "interface": "razer.devices",
+      "name": "syncEffects",
+      "input": "b",
+      "output": "",
+      "sources": [
+        "daemon/openrazer_daemon/daemon.py:129"
+      ]
+    }
+  ]
+}
