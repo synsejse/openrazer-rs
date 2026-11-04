@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Extract protocol facts without importing or executing GPL daemon code.
+
 Usage: python tools/audit.py /path/to/openrazer
-Writes a reproducible inventory; no daemon implementation is copied.
+
+Writes a reproducible docs/protocol.json; no daemon implementation is copied.
 """
 import ast
 import json
@@ -9,29 +11,94 @@ import pathlib
 import subprocess
 import sys
 
-root = pathlib.Path(sys.argv[1])
-records = {}
+REPOSITORY = pathlib.Path(__file__).resolve().parent.parent
 
-def add(interface, name, ins, outs, path, line):
-    key = (interface, name, ins or '', outs or '')
-    records.setdefault(key, []).append(f'{path}:{line}')
 
-for path in sorted((root / 'daemon').rglob('*.py')):
-    tree = ast.parse(path.read_text())
-    relative = str(path.relative_to(root))
-    for node in ast.walk(tree):
-        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
-            for deco in node.decorator_list:
-                if isinstance(deco, ast.Call) and isinstance(deco.func, ast.Name) and deco.func.id == 'endpoint':
-                    args = [ast.literal_eval(a) for a in deco.args]
-                    kw = {k.arg: ast.literal_eval(k.value) for k in deco.keywords}
-                    add(args[0], args[1], kw.get('in_sig'), kw.get('out_sig'), relative, node.lineno)
-        if isinstance(node, ast.Tuple) and len(node.elts) == 5:
-            a = node.elts
-            if isinstance(a[0], ast.Constant) and isinstance(a[0].value, str) and a[0].value.startswith('razer.'):
-                add(ast.literal_eval(a[0]), ast.literal_eval(a[1]), ast.literal_eval(a[3]), ast.literal_eval(a[4]), relative, node.lineno)
+def endpoint_decorators(function):
+    """Yield the `@endpoint(...)` calls on a function."""
+    for decorator in function.decorator_list:
+        if (
+            isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Name)
+            and decorator.func.id == 'endpoint'
+        ):
+            yield decorator
 
-inventory = {'revision': subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip(),
-             'methods': [dict(interface=k[0], name=k[1], input=k[2], output=k[3], sources=v) for k,v in sorted(records.items())]}
-pathlib.Path('docs/protocol.json').write_text(json.dumps(inventory, indent=2)+'\n')
-print(len(records), 'distinct method signatures')
+
+def is_registration_tuple(node):
+    """Whether a node is `(interface, name, function, in_sig, out_sig)`."""
+    if not isinstance(node, ast.Tuple) or len(node.elts) != 5:
+        return False
+    interface = node.elts[0]
+    return (
+        isinstance(interface, ast.Constant)
+        and isinstance(interface.value, str)
+        and interface.value.startswith('razer.')
+    )
+
+
+def extract(root):
+    """Map each (interface, name, input, output) to the places declaring it."""
+    records = {}
+
+    def add(interface, name, input_signature, output_signature, path, line):
+        key = (interface, name, input_signature or '', output_signature or '')
+        records.setdefault(key, []).append(f'{path}:{line}')
+
+    for path in sorted((root / 'daemon').rglob('*.py')):
+        relative = str(path.relative_to(root))
+        for node in ast.walk(ast.parse(path.read_text())):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                for decorator in endpoint_decorators(node):
+                    args = [ast.literal_eval(arg) for arg in decorator.args]
+                    keywords = {
+                        keyword.arg: ast.literal_eval(keyword.value)
+                        for keyword in decorator.keywords
+                    }
+                    add(
+                        args[0],
+                        args[1],
+                        keywords.get('in_sig'),
+                        keywords.get('out_sig'),
+                        relative,
+                        node.lineno,
+                    )
+            if is_registration_tuple(node):
+                interface, name, _, input_signature, output_signature = node.elts
+                add(
+                    ast.literal_eval(interface),
+                    ast.literal_eval(name),
+                    ast.literal_eval(input_signature),
+                    ast.literal_eval(output_signature),
+                    relative,
+                    node.lineno,
+                )
+    return records
+
+
+def main():
+    root = pathlib.Path(sys.argv[1])
+    records = extract(root)
+    revision = subprocess.check_output(
+        ['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True
+    ).strip()
+    inventory = {
+        'revision': revision,
+        'methods': [
+            {
+                'interface': interface,
+                'name': name,
+                'input': input_signature,
+                'output': output_signature,
+                'sources': sources,
+            }
+            for (interface, name, input_signature, output_signature), sources
+            in sorted(records.items())
+        ],
+    }
+    (REPOSITORY / 'docs/protocol.json').write_text(json.dumps(inventory, indent=2) + '\n')
+    print(len(records), 'distinct method signatures')
+
+
+if __name__ == '__main__':
+    main()

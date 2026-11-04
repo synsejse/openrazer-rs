@@ -1,4 +1,5 @@
 use openrazer::{Introspection, methods::*};
+
 #[test]
 fn complete_inventory_and_exact_signatures() {
     let caps = Introspection::parse(include_str!("fixtures/all.xml")).unwrap();
@@ -13,6 +14,7 @@ fn complete_inventory_and_exact_signatures() {
         assert!(!caps.has_method("invalid.interface", m.name, m.input, m.output));
     }
 }
+
 #[test]
 fn captures_distinguish_transport_and_missing_features() {
     for (xml, wireless) in [
@@ -35,9 +37,17 @@ fn captures_distinguish_transport_and_missing_features() {
         assert!(!caps.has_method("razer.device.dpi", "getDPIStages", "", "ya(qq)"));
     }
 }
+
 #[test]
 fn omitted_direction_is_input_and_malformed_xml_is_rejected() {
-    let caps=Introspection::parse(r#"<node><interface name="razer.device.dpi"><method name="setDPI"><arg type="q"/><arg type="q"/></method></interface></node>"#).unwrap();
+    let caps = Introspection::parse(
+        r#"<node>
+            <interface name="razer.device.dpi">
+                <method name="setDPI"><arg type="q"/><arg type="q"/></method>
+            </interface>
+        </node>"#,
+    )
+    .unwrap();
     assert!(caps.supports(&device_dpi::SET_DPI));
     assert!(!caps.supports(&device_dpi::GET_DPI));
     assert!(Introspection::parse("<node><interface").is_err());

@@ -41,7 +41,7 @@ never invoke hardware setters. Calls set D-Bus `NO_AUTO_START`.
 
 ## razerr-rs API map
 
-Add `openrazer = { git = "https://github.com/synsejse/openrazer-rs", rev = "<second commit>" }`
+Add `openrazer = { git = "https://github.com/synsejse/openrazer-rs", rev = "<reviewed commit>" }`
 to workspace dependencies and to the adapter crate. Add that exact repository to
 `deny.toml`'s `[sources].allow-git`; `unknown-git = "deny"` currently rejects it.
 The adapter's package name `razerr-openrazer` need not change.

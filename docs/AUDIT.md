@@ -27,8 +27,8 @@ aggregate synthetic XML fixture. There are no unbound audited method signatures.
 Multiple implementations sharing the same wire signature are represented by a
 single descriptor; this does not claim identical hardware behavior.
 
-The Python client `client/device_manager.py`, `client/devices/mice.py`,
-`client/fx.py`, `client/constants.py`, daemon endpoint implementations, base-device
+The Python client `pylib/openrazer/client/device_manager.py`, `devices/mice.py`,
+`fx.py` and `constants.py`, daemon endpoint implementations, base-device
 registration and relevant commit history were also inspected for semantic rules.
 The source audit covers these families:
 
@@ -74,7 +74,8 @@ Private-bus tests spawn their own `dbus-daemon --session --nofork`, connect via 
 returned address, own a fake org.razer and terminate only that child process.
 They test enumeration, exact struct/array/byte/double roundtrips, battery sentinel,
 unsupported and incompatible methods, preserved setter failure without retry,
-malformed replies, timeout, invalid serials, absent daemon, hotplug and owner events.
+malformed replies, timeout, invalid serials, absent daemon, the `NO_AUTO_START` call
+flag, hotplug and owner events.
 No test uses the inherited desktop bus. No real hardware setter or service restart
 was performed. No real hardware semantics, lighting rendering, macro execution,
 firmware behavior or cross-device synchronization are verified.
@@ -99,5 +100,6 @@ cargo doc --locked --no-deps
 ```
 
 Generated source is checked in; consumers do not need Python or an OpenRazer
-checkout to compile. CI checks builds and private-bus tests; regeneration against
-a fresh upstream checkout is an explicit maintainer task.
+checkout to compile. CI checks builds, private-bus tests and that the generated
+files match `docs/protocol.json`; re-auditing a fresh upstream checkout is an
+explicit maintainer task.
